@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author SMHRD
+ *
+ */
+module myhandJAVA {
+}
