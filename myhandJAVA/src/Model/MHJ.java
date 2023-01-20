@@ -1,6 +1,6 @@
 package Model;
 
-public class dkdkd {
+public class MHJ {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -8,8 +8,6 @@ public class dkdkd {
 		System.out.println("신석우");
 		System.out.println("윤선지");
 		System.out.println("박화연");
-		
-		System.out.println("깃허브");
 	}
 
 }
