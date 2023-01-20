@@ -1,6 +1,6 @@
 package Model;
 
-public class dkdkd {
+public class MHJ {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
