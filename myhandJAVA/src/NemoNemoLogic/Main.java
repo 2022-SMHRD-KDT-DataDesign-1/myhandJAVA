@@ -6,7 +6,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		
+		Controller ct = new Controller();
 		Scanner sc = new Scanner(System.in);
 		boolean isCleared = false;
 		
@@ -18,8 +18,16 @@ public class Main {
 			
 			int choice = sc.nextInt();
 			
-			if (choice == 1) {
+			if (choice == 1) { // 회원가입 
 				System.out.println("=========회원가입==========");
+				System.out.print("아이디 : ");
+				String id = sc.next();
+				System.out.print("비밀번호 : ");
+				String pw = sc.next();
+				System.out.print("닉네임 : ");
+				String nick = sc.next();
+				DTO dto = new DTO(id,pw,nick);
+				ct.join(dto);
 				break;
 			}else if (choice == 2) {
 				System.out.println("=========로그인=========");
