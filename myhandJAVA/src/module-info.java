@@ -6,4 +6,5 @@
  *
  */
 module myhandJAVA {
+	requires java.sql;
 }
