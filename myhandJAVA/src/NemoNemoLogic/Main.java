@@ -96,12 +96,16 @@ public class Main {
 			gamePlay();
 		}else if (re_select == 2) {
 			levelChoice();
+		}else {
+			System.out.println("올바른 숫자를 입력하세요");
 		}
 	} 
 	
+	// 게임플레이 화면
 	public static void gamePlay() {
 		int life = 0;
 		Scanner sc = new Scanner(System.in);
+		String[] stars = {"♥♥♥","♥♥♡","♥♡♡","♡♡♡"};
 		
 		System.out.println("================GAME================");
 		System.out.println(" xxx 님                코인 : 5개");
@@ -111,11 +115,19 @@ public class Main {
 		System.out.println("GAME");
 		
 		System.out.println("------------------------------------");
-		System.out.println("                            ♥♥♡     ");
+		if (life == 3) {
+			System.out.println("                            "+stars[0]);
+		}else if (life == 2) {
+			System.out.println("                            "+stars[1]);			
+		}else if (life == 1) {
+			System.out.println("                            "+stars[2]);					
+		}else if (life == 0) {
+			System.out.println("                            "+stars[3]);								
+		}
 		
 		if (life == 0) {
 			System.out.println("=============================");
-			System.out.println("♡ 목숨이 0이 되었어요!");
+			System.out.println(" ♡ 목숨이 0이 되었어요!");
 			System.out.println("목숨을 구입해서 계속 플레이 하시겠습니까?");
 			System.out.println("[1] 네! 계속할래요  [2] 아니요 ㅠㅠ 포기하겠습니다");
 			System.out.println("=============================");
@@ -123,17 +135,25 @@ public class Main {
 			
 			if (yesOrNo == 1) {
 				System.out.println("코인 3개를 사용 해 목숨뽑기를 진행합니다");
+				// time 주기
 				gaCha();
 				
 				
 			}else if (yesOrNo == 2) {
 				System.out.println("포기하셨습니다");
+				levelChoice();
 			
+			}else {
+				System.out.println("올바른 숫자를 입력하세요");
 			}
 			
 		}
 	}
+	
+	// 돌려돌려 목숨판 
 	public static void gaCha() {
+		
+		// 코인 -3개할것
 		
 		Random rd = new Random();
 		Scanner sc = new Scanner(System.in);
@@ -184,14 +204,18 @@ public class Main {
 					+ "");
 		}
 		System.out.println(num+"개의 목숨UP!");
+		// 목숨 + num 할것
 		System.out.println();
 		System.out.println("[1] 계속하기  [2] 돌아가기");
 		int life_select = sc.nextInt();
 		
 		if (life_select == 1) {
+			// 목숨 -1 할것
 			gamePlay();
 		}else if (life_select == 2) {
 			levelChoice();
+		}else {
+			System.out.println("올바른 숫자를 입력하세요");
 		}
 	}
 }
