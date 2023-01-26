@@ -15,6 +15,18 @@ public class DTO {
 		this.id = id;
 		this.pw = pw;
 	}
+	public DTO() {
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
 	public String getId() {
 		return id;
 	}

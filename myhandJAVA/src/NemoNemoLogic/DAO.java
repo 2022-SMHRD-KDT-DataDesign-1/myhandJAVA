@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 public class DAO {
 	
@@ -66,5 +68,80 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	// 로그인
+	public DTO login(DTO dto) {
+		DTO a = new DTO();
+		getCon();
+		try {
+			String sql = "SELECT * FROM user_info WHERE user_id = ? and user_pw = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getId());
+			psmt.setString(2, dto.getPw());
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				if (rs.getString(4).equals(dto.getPw())) {
+					a.setNick(rs.getString(3));
+					break;
+				}else {
+					a.setNick(null);
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("로그인 : 데이터베이스 연결 실패");
+			e.printStackTrace();
+		} finally {
+			getClose();
+		}
+		return a;
+	}
+	
+	// 게임 난이도에 따른 게임 종류(개수) 반환
+	public ArrayList<Integer> levelChoice(int level_choice) {
+		ArrayList<Integer> game_seq = new ArrayList<>();
+		getCon();
+		try {
+			String sql = "SELECT * FROM GAME_INFO WHERE game_level = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, level_choice);
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+				game_seq.add(rs.getInt("game_seq"));
+			}
+		} catch (SQLException e) {
+			System.out.println("game seq : 데이터베이스 연결 실패");
+			e.printStackTrace();
+		} finally {
+			getClose();
+		}
+		return game_seq;
+	}
+	
+	
+	// 게임 난이도에 따른 게임 종류(개수) 반환
+	public String gameChoice(int game_select) {
+		String answer = "";
+		getCon();
+		try {
+			String sql = "SELECT * FROM GAME_INFO WHERE game_seq = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, game_select);
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+				answer = rs.getString(5);
+			}
+		} catch (SQLException e) {
+			System.out.println("game seq : 데이터베이스 연결 실패");
+			e.printStackTrace();
+		} finally {
+			getClose();
+		}
+		return answer;
+	}
+	
+	
 }
 
