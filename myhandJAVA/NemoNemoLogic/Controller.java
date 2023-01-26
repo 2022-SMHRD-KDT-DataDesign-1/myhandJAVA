@@ -236,7 +236,6 @@ public class Controller {
 				}
 				end = System.currentTimeMillis();
 				time = Long.toString((end - start) / 1000 / 60) + "," + Long.toString((end - start) / 1000 % 60);
-				
 				if(level == 1 && count == 3) {
 					coin = 1;
 				}else if(level == 2) {
