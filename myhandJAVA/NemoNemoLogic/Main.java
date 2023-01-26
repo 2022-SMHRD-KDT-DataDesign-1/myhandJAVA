@@ -34,7 +34,7 @@ public class Main {
 				DTO dto = new DTO(id,pw,nick);
 				ct.join(dto);
 				System.out.println("---------------------------------\n");
-				break;
+
 			}else if (choice == 2) {
 				while(true) {
 				System.out.println("---------------로그인-------------");
