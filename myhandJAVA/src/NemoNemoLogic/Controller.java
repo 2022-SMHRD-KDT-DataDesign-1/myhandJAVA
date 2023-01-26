@@ -83,7 +83,12 @@ public class Controller {
 	public static void gameChoice(int game_select) {
 		DAO dao1 = new DAO();
 		int num = 0;
-		int[][] res = new int[5][5];
+		if (game_select==1) {
+			int a = 5;
+		} else {
+			int a = 10;
+		}
+		int[][] res = new int[a][a];
 		// ans는 답 데이터
 		String ans = dao1.gameChoice(level, game_select);
 		if (ans == null) {
@@ -399,14 +404,14 @@ public class Controller {
 					
 				} else {
 					if (i < len) {
-						String[] a = hintArrY[j-3].split("");
+						String[] a = hintArrY[j-len].split("");
 						if (a.length > i ) {
 							System.out.print(a[i] + " ");
 						}else {
 							System.out.print("  ");
 						}
 					}else {
-						String[] a = hintArrX[i-3].split("");
+						String[] a = hintArrX[i-len].split("");
 						if (a.length > j ) {
 							System.out.print(a[j] + " ");
 						}else {
