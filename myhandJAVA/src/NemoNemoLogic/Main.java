@@ -173,6 +173,8 @@ public class Main {
 				+ "　　　　　　..　.· ´¸.·롱*´¨) ¸.·*¨)\n"
 				+ "　　　　　　　　　　(¸.·´ ( ¸.'*\n"
 				+ "");
+		
+		
 		int num = rd.nextInt(4);
 		if (num == 0) {
 			System.out.println("　 　 ∧＿∧\n"
