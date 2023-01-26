@@ -213,10 +213,11 @@ public class Controller {
 				row = dao1.updateCoin(coin, userSeq);
 				if(row > 0) {
 					System.out.println(coin+"코인 흭득!");
+				}else {
+					System.out.println("흭득 코인 없음");
 				}
-				row = dao1.userGame(userSeq , game_select);
+				dao1.userGame(userSeq , game_select);
 				
-
 			}
 
 		} // while문 종료

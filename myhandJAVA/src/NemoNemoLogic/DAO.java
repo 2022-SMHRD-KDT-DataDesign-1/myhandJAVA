@@ -162,7 +162,7 @@ public class DAO {
 		return row;
 	}
 
-	public int userGame(int userSeq ,int game_select) {
+	public void userGame(int userSeq ,int game_select) {
 		int row = 0;
 		int check = 0;
 		getCon();
@@ -207,8 +207,6 @@ public class DAO {
 				getClose();
 			}
 		}
-
-		return row;
 	}
 }
 
