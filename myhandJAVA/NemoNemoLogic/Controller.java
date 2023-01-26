@@ -17,7 +17,7 @@ public class Controller {
 	static int userSeq = 0;
 	static long start;
 	static long end;
-	
+	static String time;
 	public void join(DTO dto) { // 회원가입
 		row = dao.join(dto);
 		if (row > 0) {
@@ -180,7 +180,6 @@ public class Controller {
 		
 		while (count > 0) {
 			System.out.println("현재 목숨 : " + count);
-			
 			if (level == 1) {
 				printQuestion(res, user, 5);
 			} else if (level == 2) {
@@ -233,7 +232,7 @@ public class Controller {
 					System.out.println();
 				}
 				end = System.currentTimeMillis();
-				System.out.println("시간 : " + (end - start) / 1000 / 60 + "분 "+(end - start) / 1000 % 60 + "초");
+				time = Long.toString((end - start) / 1000 / 60) + "," + Long.toString((end - start) / 1000 % 60);
 				
 				if(level == 1 && count == 3) {
 					coin = 1;
@@ -247,7 +246,7 @@ public class Controller {
 				}else {
 					System.out.println("흭득 코인 없음");
 				}
-				dao1.userGame(userSeq , game_select);
+				dao1.userGame(userSeq , game_select , time);
 				break;
 			}
 
