@@ -12,10 +12,9 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 //		MusicPlayer player = new MusicPlayer();
 //		MusicVO m = player.play(0); // 메인음악
-		int row = 0;
+		int row = 1;
+		boolean isCheck = false;
 		welcome();
-		
-		
 		
 		while(true) {
 			System.out.println("---------------------------------");
@@ -36,7 +35,7 @@ public class Main {
 				System.out.println("---------------------------------\n");
 
 			}else if (choice == 2) {
-				while(true) {
+				while(!isCheck) {
 					System.out.println("---------------로그인-------------");
 					// 로그인
 					System.out.print("아이디를 입력해주세요 : ");
@@ -45,39 +44,40 @@ public class Main {
 					String pw = sc.next(); 
 					System.out.println("---------------------------------\n");
 					DTO dto = new DTO(id, pw);
-					boolean isCheck = ct.login(dto);
-					System.out.println("=============================================");
-					System.out.println("ː            네모네모 로직 게임 설명             ː");
-					System.out.println("ː                                           ː");
-					System.out.println("ː   1. 쓰인 숫자만큼 연속된 칸을 칠할것 !          ː");
-					System.out.println("ː   2. 숫자와 숫자 사이에는 최소한 한 칸을 비울 것 ! ː");
-					System.out.println("ː   3. 숫자의 순서와 칠해진 칸의 순서가 일치할 것 !  ː");
-					System.out.println("=============================================\n");
-						if (isCheck) {
-							while(true) {
-								sleep();
-								System.out.println("-------------난이도선택------------");
-								System.out.println("ː   ① 5X5    ② 10X10   ③ 로그아웃  ː ");
-								System.out.println("---------------------------------\n");
-								int level_choice = sc.nextInt();
-								if(level_choice == 3) {
-									System.out.println("로그아웃 되었습니다.");
-									break; 
-								}
-								ct.levelChoice(level_choice);
-								
-								System.out.println("플레이할 그림을 선택하세요");
-								int game_select = sc.nextInt();
-//								player.stop();
-//								player.play(1); // 게임 플레이음악
-								row = ct.gameChoice(game_select);
-								if(row > 0) {
-									continue;
-								}else {
-									break;
-								}
-							}
-					} 
+					isCheck = ct.login(dto);
+				}
+				System.out.println("=============================================");
+				System.out.println("ː            네모네모 로직 게임 설명             ː");
+				System.out.println("ː                                          ː");
+				System.out.println("ː   1. 쓰인 숫자만큼 연속된 칸을 칠할것 !          ː");
+				System.out.println("ː   2. 숫자와 숫자 사이에는 최소한 한 칸을 비울 것 ! ː");
+				System.out.println("ː   3. 숫자의 순서와 칠해진 칸의 순서가 일치할 것 !  ː");
+				System.out.println("=============================================\n");
+				while(row > 0) {
+					sleep();
+					System.out.println("-------------난이도선택------------");
+					System.out.println("ː   ① 5X5    ② 10X10   ③ 로그아웃  ː ");
+					System.out.println("---------------------------------\n");
+					int level_choice = sc.nextInt();
+					if(level_choice == 3) {
+						System.out.println("로그아웃 되었습니다.");
+						break;
+					} else if (level_choice > 3){
+						System.out.println("번호를 확인하세요~.");
+						continue;
+					}
+					ct.levelChoice(level_choice);
+					
+					System.out.println("플레이할 그림을 선택하세요");
+					int game_select = sc.nextInt();
+//					player.stop();
+//					player.play(1); // 게임 플레이음악
+					row = ct.gameChoice(game_select);
+					if(row > 0) {
+						continue;
+					}else {
+						isCheck = false;
+					}
 				}
 			}else if (choice == 3) {
 				System.out.println("-------------게임을 종료합니다------------");
