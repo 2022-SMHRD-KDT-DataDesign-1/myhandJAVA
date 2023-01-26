@@ -8,7 +8,7 @@ import NemoNemoLogic.DAO;
 import NemoNemoLogic.DTO;
 
 public class Controller {
-	Scanner sc = new Scanner(System.in);
+	static Scanner sc = new Scanner(System.in);
 	DAO dao = new DAO();
 	int row = 0;
 	static String userNick = "";
@@ -86,8 +86,9 @@ public class Controller {
 	}
 
 	// 난이도에 따른 게임 선택
-	public static boolean gameChoice(int game_select) {
+	public static int gameChoice(int game_select) {
 		DAO dao1 = new DAO();
+		int row = 0;
 		boolean isCheck = false;
 		int num = 0;
 		int a = 0;
@@ -102,6 +103,27 @@ public class Controller {
 		GameDTO ans = dao1.gameChoice(level, game_select);
 		gameSeq = ans.getGameSeq();
 		dao1.rank(userSeq, gameSeq);
+		row = dao1.clear(userSeq,gameSeq);
+		if(row > 0) {
+			System.out.println("--- 이미 클리어한 그림 입니다.");
+			System.out.println(" ① 랭킹보기 ② 다시하기");
+			int select = sc.nextInt();
+			if(select == 1) {
+				ArrayList<GameDTO> list = new ArrayList<>();
+				list = dao1.rank(gameSeq);
+				System.out.println("============ Rank ============");
+				System.out.println("  이름\t\t 시간");
+				for(int i = 0;i<list.size();i++) {
+					System.out.println((i+1)+" "+list.get(i).getUserNick()+"\t\t "+list.get(i).getGameTime());
+				}
+				return 1;
+			}else if(select == 2) {
+				
+			}else {
+				System.out.println("숫자를 다시 입력 해 주세요");
+			}
+		}
+		
 		if (ans.getGameAns() == null) {
 			System.out.println("게임 정보 오류");
 
@@ -125,7 +147,7 @@ public class Controller {
 		} else {
 			System.out.println("올바른 숫자를 입력하세요");
 		}
-		return false;
+		return 0;
 	}
 
 	// 답데이터 이중배열로 변경
