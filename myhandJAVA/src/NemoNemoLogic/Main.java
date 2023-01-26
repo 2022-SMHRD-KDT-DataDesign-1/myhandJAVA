@@ -10,7 +10,7 @@ public class Main {
 		Controller ct = new Controller();
 		Scanner sc = new Scanner(System.in);
 		MusicPlayer_C player = new MusicPlayer_C();
-		MusicVO m = player.play();
+		MusicVO m = player.play(0);
 		welcome();
 		
 		

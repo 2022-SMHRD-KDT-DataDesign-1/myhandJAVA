@@ -15,14 +15,14 @@ public class MusicPlayer_C {
 
 	public MusicPlayer_C() {
 		musiclist.add(new MusicVO("chilpop","ss",120, ".//music/chillhop.mp3"));
-	
+		
 	}
 	
 	
 
 	// 재생기능
-	public MusicVO play() {
-		MusicVO vo = musiclist.get(curIndex);
+	public MusicVO play(int num) {
+		MusicVO vo = musiclist.get(num);
 		
 		if (mp3.isPlaying()) {
 			mp3.stop();
