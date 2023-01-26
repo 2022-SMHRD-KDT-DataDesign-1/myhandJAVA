@@ -59,13 +59,25 @@ public class Main {
 							System.out.println("로그아웃 되었습니다.");
 							break; 
 						}
-						ct.levelChoice(level_choice);
+						if(level_choice > 3 || level_choice <= 0) {
+							System.out.println("번호를 확인해 주세요..");
+							continue;
+						}
 						
-						System.out.println("플레이할 그림을 선택하세요");
-						int game_select = sc.nextInt();
+						boolean isChe = true;
 						player.stop();
 						player.play(1); // 게임 플레이음악
-						ct.gameChoice(game_select);
+						
+						while (isChe) {
+							ct.levelChoice(level_choice);
+
+							System.out.println("플레이할 그림을 선택하세요");
+							int game_select = sc.nextInt();
+							
+							isChe = ct.gameChoice(game_select);
+							
+						}
+
 						
 					} 
 				}

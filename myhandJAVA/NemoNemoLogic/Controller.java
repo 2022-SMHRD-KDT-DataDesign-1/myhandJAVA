@@ -85,19 +85,20 @@ public class Controller {
 	}
 
 	// 난이도에 따른 게임 선택
-	public static void gameChoice(int game_select) {
+	public static boolean gameChoice(int game_select) {
 		DAO dao1 = new DAO();
 		boolean isCheck = false;
 		int num = 0;
 		int a = 0;
-		if (game_select==1) {
+		if (level==1) {
 			a = 5;
-		} else {
+		} else if (level==2){
 			a = 10;
-		}
+		} 
 		int[][] res = new int[a][a];
 		// ans는 답 데이터
 //		String ans = dao1.gameChoice(level, game_select);
+		System.out.println(level +","+ game_select);
 		GameDTO ans = dao1.gameChoice(level, game_select);
 		gameSeq = ans.getGameSeq();
 		dao1.rank(userSeq,gameSeq);
@@ -124,7 +125,7 @@ public class Controller {
 		} else {
 			System.out.println("올바른 숫자를 입력하세요");
 		}
-		
+		return false;
 	}
 
 	// 답데이터 이중배열로 변경
@@ -135,6 +136,7 @@ public class Controller {
 		for (int i = 0; i < res.length; i++) {
 			String[] arr3 = arr[i].split("");
 			for (int j = 0; j < arr.length; j++) {
+				System.out.print(arr3[j]);
 				res[i][j] = Integer.parseInt(arr3[j]);
 //				System.out.print(res[i][j] + " ");
 			}
