@@ -70,7 +70,6 @@ public class Main {
 									break;
 								}
 							}
-							
 					} 
 				}
 			}else if (choice == 3) {

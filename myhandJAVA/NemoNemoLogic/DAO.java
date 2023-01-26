@@ -127,15 +127,15 @@ public class DAO {
 		GameDTO ans = new GameDTO(0, "");
 		getCon();
 		try {
-			String sql = "SELECT * FROM (SELECT ROWNUM AS RN, game_seq, game_ans FROM GAME_INFO WHERE game_level = ? order by game_seq) WHERE ROWNUM  = ?";
+			String sql = "SELECT * FROM (SELECT ROWNUM AS RN, game_seq, game_ans FROM GAME_INFO WHERE game_level = ? order by game_seq) WHERE ROWNUM  <= ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, level);
 			psmt.setInt(2, game_select);
 			rs = psmt.executeQuery();
 			
 			while (rs.next()) {
-				ans.setGameAns(rs.getString(3));
 				ans.setGameSeq(rs.getInt(2));
+				ans.setGameAns(rs.getString(3));
 			}
 		} catch (SQLException e) {
 			System.out.println("game seq : 데이터베이스 연결 실패");
