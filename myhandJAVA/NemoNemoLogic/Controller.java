@@ -341,6 +341,10 @@ public class Controller {
 						System.out.println("----------------------------------\n");
 						System.out.println();
 						sleep();
+						DAO dao1 = new DAO();
+						
+						// userCoin 3개 차감
+						dao1.gaCha(userCoin-3);
 						int a1 = gaCha();
 						
 						if (a1 == 10) {
@@ -348,8 +352,8 @@ public class Controller {
 						}
 						// 가챠로 뽑아온 목숨 a1더하기
 						count = count + a1;
-						// 한판 다시니까 1 차감
-						count--;
+						// 한판 다시니까 1 차감 -> 할랬는데 목숨 1개 뽑으면 꺼져서 일단 안차감..ㅎ
+//						count--;
 					} else if (yesOrNo == 2) {
 						System.out.println("\t포기하셨습니다\n");
 						System.out.println("\t　 /) /) \n" + "\t  (ಥ_ಥ)\n");
@@ -516,6 +520,12 @@ public class Controller {
 		// 목숨 + num 해야함
 		System.out.println();
 
+		if (num == 0) {
+			System.out.println("꽝!!! 안타깝네요!!");
+			System.out.println();
+			return 10;
+		}
+		
 		System.out.println("----------------------------------");
 		System.out.println("ː         " + num + "개의 목숨 UP            ː ");
 		System.out.println("ː     ① 계속하기     ② 돌아가기      ː ");

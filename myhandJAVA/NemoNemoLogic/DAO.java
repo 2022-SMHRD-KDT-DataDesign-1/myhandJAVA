@@ -253,5 +253,20 @@ public class DAO {
 		
 		
 	}
+	
+	public int gaCha(int coin) {
+		int row = 0;
+		getCon();
+		try {
+			String sql = "UPDATE user_info SET user_coin = ? where user_seq = 3";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1,coin);
+			row = psmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Rank : SQL 전송 실패");
+			e.printStackTrace();
+		}
+		return row;
+	}
 }
 
