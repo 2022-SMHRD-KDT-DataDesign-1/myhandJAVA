@@ -216,7 +216,19 @@ public class Controller {
 				DAO dao1 = new DAO();
 				int coin = 0;
 				System.out.println("정답");
-				
+				for (int i = 0; i < user.length; i++) {
+					for (int j = 0; j < user.length; j++) {
+						if (user[i][j] == 1) {
+							System.out.print("■" + " ");
+						} else if (user[i][j] == 3) {
+							System.out.print("X" + " ");
+						} else {
+							System.out.print("□" + " ");
+						}
+						
+					}
+					System.out.println();
+				}
 				end = System.currentTimeMillis();
 				System.out.println("시간 : " + (end - start) / 1000 / 60 + "분 "+(end - start) / 1000 % 60 + "초");
 				
@@ -491,9 +503,8 @@ public class Controller {
 			}
 			cntNumY = 0;
 		}
-		
-		return hintArrY;
 	
+		return hintArrY;
 	
 	}
 	
