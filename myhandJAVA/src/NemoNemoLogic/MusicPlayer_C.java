@@ -14,10 +14,8 @@ public class MusicPlayer_C {
 	MP3Player mp3 = new MP3Player();
 
 	public MusicPlayer_C() {
-		musiclist.add(new MusicVO("chilpop","ss",120, "C://song/chillhop.mp3"));
-		musiclist.add(new MusicVO("chilpop","ss",120, "C://song/retro.mp3"));
-		musiclist.add(new MusicVO("chilpop","ss",120, "C://song/starlight.mp3"));
-		musiclist.add(new MusicVO("chilpop","ss",120, "C://song/Cooking_Time.mp3"));
+		musiclist.add(new MusicVO("chilpop","ss",120, ".//music/chillhop.mp3"));
+	
 	}
 	
 	
@@ -35,12 +33,12 @@ public class MusicPlayer_C {
 	}
 	
 	// 멈추기
-	public String stop() {
+	public void stop() {
 		
 		if (mp3.isPlaying()) {
 			mp3.stop();
 		}
-		
-		return "노래가 정지되었습니다";
+//	return "";
+	
 	}
 }

@@ -10,7 +10,7 @@ public class Main {
 		Controller ct = new Controller();
 		Scanner sc = new Scanner(System.in);
 		MusicPlayer_C player = new MusicPlayer_C();
-		
+		MusicVO m = player.play();
 		welcome();
 		
 		
@@ -44,6 +44,10 @@ public class Main {
 				DTO dto = new DTO(id, pw);
 				boolean isCheck = ct.login(dto);
 					if (isCheck) {
+						// 일단 노래 멈춤
+						
+						player.stop();
+						
 						sleep();
 						System.out.println("-------------난이도선택------------");
 						System.out.println("ː   ① 5X5    ② 10X10   ③ 로그아웃  ː ");
@@ -78,19 +82,21 @@ public class Main {
 	
 	// welcome
 		public static void welcome() {
+
+
 			MusicPlayer_C player = new MusicPlayer_C();
 
 			System.out.println();
-			MusicVO m = player.play();
+//			MusicVO m = player.play();
 			System.out.println("━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━");
 			System.out.println(" \t\t                         ___                                           \n"
 					+ "  \t\t                        /\\_ \\                                          \n"
 					+ " \t\t    __  __  __     __   \\//\\ \\      ___     ___     ___ ___       __   \n"
 					+ " \t\t   /\\ \\/\\ \\/\\ \\  /'__`\\   \\ \\ \\    /'___\\  / __`\\ /' __` __`\\   /'__`\\ \n"
-					+ " \t\t   \\ \\ \\_/ \\_/ \\/\\  __/    \\_\\ \\_ /\\ \\__/ /\\ \\L\\ \\/\\ \\/\\ \\/\\ \\ /\\  __/ \n"
-					+ "  \t\t   \\ \\___x___/'\\ \\____\\   /\\____\\\\ \\____\\\\ \\____/\\ \\_\\ \\_\\ \\_\\\\ \\____\\\n"
-					+ "   \t\t   \\/__//__/   \\/____/   \\/____/ \\/____/ \\/___/  \\/_/\\/_/\\/_/ \\/____/");
-			System.out.println();
+					+ " \t\t    \\ \\ \\_/ \\_/ \\/\\  __/    \\_\\ \\_ /\\ \\__/ /\\ \\L\\ \\/\\ \\/\\ \\/\\ \\ /\\  __/ \n"
+					+ "  \t\t    \\ \\___x___/'\\ \\____\\   /\\____\\\\ \\____\\\\ \\____/\\ \\_\\ \\_\\ \\_\\\\ \\____\\\n"
+					+ "   \t\t    \\/__//__/   \\/____/   \\/____/ \\/____/ \\/___/  \\/_/\\/_/\\/_/ \\/____/");
+			System.out.println(); 
 			sleep();
 			System.out.println("\t __  __                                   __  __                                  \n"
 					+ "\t/\\ \\/\\ \\                                 /\\ \\/\\ \\                                 \n"
@@ -124,6 +130,7 @@ public class Main {
 		
 	// sleep 1초
 	public static void sleep() {
+
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
