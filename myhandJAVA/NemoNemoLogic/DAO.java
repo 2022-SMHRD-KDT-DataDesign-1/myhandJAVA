@@ -84,6 +84,7 @@ public class DAO {
 				if (rs.getString(4).equals(dto.getPw())) {
 					a.setNick(rs.getString(3));
 					a.setUserSeq(rs.getInt(1));
+					a.setUserCoin(5);
 					break;
 				}else {
 					a.setNick(null);

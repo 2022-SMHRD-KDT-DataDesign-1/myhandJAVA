@@ -12,6 +12,7 @@ public class Controller {
 	DAO dao = new DAO();
 	int row = 0;
 	static String userNick = "";
+	static int userCoin = 0;
 	static int level = 0;
 	static int userSeq = 0;
 	static long start;
@@ -33,6 +34,7 @@ public class Controller {
 		DTO res = dao.login(dto);
 //		boolean res = dao.login(dto);
 		userSeq = res.getUserSeq();
+		userCoin = res.getUserCoin();
 		if (res.getNick() != null) {
 			userNick = res.getNick();
 			System.out.println("로그인 완료");
@@ -120,6 +122,7 @@ public class Controller {
 
 	}
 
+	// 답데이터 이중배열로 변경
 	public static int[][] arrMake(String ans, int num) {
 		int[][] res = new int[num][num];
 		String[] arr = ans.split(",");
@@ -240,6 +243,7 @@ public class Controller {
 				row = dao1.updateCoin(coin, userSeq);
 				if(row > 0) {
 					System.out.println(coin+"코인 흭득!");
+					userCoin += coin;
 				}else {
 					System.out.println("흭득 코인 없음");
 				}
@@ -278,7 +282,7 @@ public class Controller {
 	}
 	
 	
-	
+
 	
 
 	public static void gamePlay() {
@@ -336,6 +340,7 @@ public class Controller {
 
 		}
 	}
+	
 	// sleep 1초
 	public static void sleep() {
 		try {
