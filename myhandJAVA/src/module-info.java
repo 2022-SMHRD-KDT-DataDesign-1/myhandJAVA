@@ -7,4 +7,5 @@
  */
 module myhandJAVA {
 	requires java.sql;
+	requires player;
 }

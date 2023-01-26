@@ -34,6 +34,9 @@ public class Controller {
 			userNick = res.getNick();
 			System.out.println("로그인 완료");
 			System.out.println(res.getNick() + "님 반갑습니다.\n");
+			System.out.println("╭◜◝ ͡ ◜◝╮\r\n"
+					+ "( ＊•◡•＊ )\r\n"
+					+ "╰◟◞ ͜ ◟◞╯\n");
 			return isCheck = true;
 		} else {
 			System.out.println("아이디나 비밀번호를 확인하세요.");
@@ -51,7 +54,6 @@ public class Controller {
 		ArrayList<Integer> game_seq = dao1.levelChoice(level_choice);
 		while (true) {
 			if (level_choice == 1) { 
-				sleep();
 				System.out.println();
 				System.out.println("---------------5X5---------------");
 				for (int i = 0; i < game_seq.size(); i++) {
@@ -62,7 +64,6 @@ public class Controller {
 				System.out.println("---------------------------------\n");
 				break;
 			} else if (level_choice == 2) {
-				sleep();
 				System.out.println();
 				System.out.println("--------------10X10--------------");
 				for (int i = 0; i < game_seq.size(); i++) {
@@ -84,13 +85,13 @@ public class Controller {
 		int num = 0;
 		int[][] res = new int[5][5];
 		// ans는 답 데이터
-		String ans = dao1.gameChoice(level, game_select);
+		String ans = dao1.gameChoice(game_select);
 		if (ans == null) {
 			System.out.println("게임 정보 오류");
 
 		} else if (level == 1) { // 5*5
 			num = 5;
-			System.out.println(num + " x " + num);
+			System.out.println(num + "x" + num);
 			// 답데이터 res[][]배열에 저장
 			res = arrMake(ans, num);
 
@@ -98,7 +99,7 @@ public class Controller {
 			playGame(num, res);
 
 		} else if (level == 2) { // 10*10
-			System.out.println(num + " x " + num);
+			System.out.println(num + "x" + num);
 			num = 10;
 		} else {
 			System.out.println("올바른 숫자를 입력하세요");
@@ -133,19 +134,17 @@ public class Controller {
 		
 		for (int i = 0; i < res.length; i++) {
 			for (int j = 0; j < res.length; j++) {
-				// 답데이터출력
-//				System.out.print(res[i][j] + " ");
+				System.out.print(res[i][j] + " ");
 				if (res[i][j] == 1)	resCheck+=1;
 			}
-//			System.out.println();
+			System.out.println();
 		}
+		System.out.println(resCheck);
 
 		// 숫자 매칭 배열
 		int[][] arr = new int[num][num];
 		int cnt = 1;
-		
-		System.out.println("번호를 선택하세요.");
-		System.out.println();
+
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr.length; j++) {
 				arr[i][j] = cnt;
@@ -154,44 +153,54 @@ public class Controller {
 			}
 			System.out.println();
 		}
+
 		// 목숨
 		int count = 3;
 		int[][] user = new int[num][num];
-		int choice = 0;
+
 		while (count > 0) {
+
 			System.out.println("현재 목숨 : " + count);
-			
-			printQuestion(res, user);
-			
+			for (int i = 0; i < user.length; i++) {
+				for (int j = 0; j < user.length; j++) {
+					if (user[i][j] == 1) {
+						System.out.printf("%3s","■");
+					} else if (user[i][j] == 3) {
+						System.out.printf("%3s","X");
+					} else {
+						System.out.printf("%3s","□");
+					}
+				}
+				System.out.println();
+			}
+
 			System.out.print("선택을 원하면 1번, X를 원하면 2번 선택 >>");
 			int oxSelect = sc.nextInt();
 			if (oxSelect == 1) {
 				System.out.print("숫자 선택 >>");
-				choice = sc.nextInt();
+				int choice = sc.nextInt();
 
 				if (res[(choice - 1) / num][(choice - 1) % num] == 1) {
 					user[(choice-1) / num][(choice - 1) % num] = 1;
 					userCheck++;
 				} else {
 					count--;
-					System.out.println("다시 확인하세요.");
 				}
-				
 			} else if (oxSelect == 2) {
 				System.out.print("숫자 선택 >>");
-				choice = sc.nextInt();
+				int choice = sc.nextInt();
 
 				if (res[(choice - 1) / num][(choice - 1) % num] == 0) {
 					user[(choice - 1) / num][(choice - 1) % num] = 3;
 				} else {
-					count--;
-					System.out.println("다시 확인하세요.");
+					System.out.println("숫자를 확인하세요.");
+					continue;
 				}
 			}
 
 			System.out.println(userCheck);
 			if (userCheck == resCheck) {
-				System.out.println("정답!!");
+				System.out.println("정답");
 				break;
 			}
 
@@ -224,10 +233,6 @@ public class Controller {
 			System.out.println("올바른 숫자를 입력하세요");
 		}
 	}
-	
-	
-	
-	
 
 	public static void gamePlay() {
 		int life = 0;
@@ -343,112 +348,5 @@ public class Controller {
 			System.out.println("올바른 숫자를 입력하세요");
 		}
 	}
-	
-	
-	
-	
-	
-	public static void printQuestion(int[][] ans, int[][] user) {
-		// x hint
-		String[] hintArrX = getHintArrX(ans);
-		// y hint
-		String[] hintArrY = getHintArrY(ans);
-
-		int hintZone = (ans.length + 1) / 2;
-		int entireZone = (ans.length + 1) / 2 + ans.length;
-		int len = (ans.length+1)/2;
-		
-		for(int i = 0; i < entireZone; i++) {
-			for(int j = 0; j < entireZone; j++) {
-				if (i < hintZone && j < hintZone) {
-					System.out.print("  ");
-				} else if(i >= hintZone && j >= hintZone){
-					if (user[i-len][j-len] == 1) {
-						System.out.print("■" + " ");
-					} else if (user[i-len][j-len] == 3) {
-						System.out.print("X" + " ");
-					} else {
-						System.out.print("□" + " ");
-					}
-					
-					
-				} else {
-					if (i < len) {
-						String[] a = hintArrY[j-3].split("");
-						if (a.length > i ) {
-							System.out.print(a[i] + " ");
-						}else {
-							System.out.print("  ");
-						}
-					}else {
-						String[] a = hintArrX[i-3].split("");
-						if (a.length > j ) {
-							System.out.print(a[j] + " ");
-						}else {
-							System.out.print("  ");
-						}
-					}
-					
-				}
-			} System.out.println();
-		}
-		
-	}
-
-	public static String[] getHintArrX(int[][] ans) {
-
-		int cntNumX = 0;
-		int numX = 5;
-		String[] hintArrX = { "", "", "", "", "" };
-		for (int i = 0; i < ans.length; i++) {
-			for (int j = 0; j < hintArrX.length; j++) {
-				if (ans[i][j] == 1) {
-					cntNumX++;
-					if (j == numX - 1 && ans[i][numX - 1] == 1) {
-						hintArrX[i] += cntNumX;
-					}
-				} else if (ans[i][j] == 0) {
-					if (cntNumX != 0) {
-						hintArrX[i] += cntNumX;
-					}
-					cntNumX = 0;
-				}
-
-			}
-			cntNumX = 0;
-		}
-
-		return hintArrX;
-	}
-
-	public static String[] getHintArrY(int[][] ans) {
-		
-		int cntNumY = 0;
-		int numY = 5;
-		String[] hintArrY = { "", "", "", "", "" };
-		for (int i = 0; i < ans.length; i++) {
-			for (int j = 0; j < hintArrY.length; j++) {
-				if (ans[j][i] == 1) {
-					cntNumY++;
-					if (j == numY - 1 && ans[j][i] == 1) {
-						hintArrY[i] += cntNumY;
-					}
-				} else if (ans[j][i] == 0) {
-					if (cntNumY != 0) {
-						hintArrY[i] += cntNumY;
-					}
-					cntNumY = 0;
-				}
-
-			}
-			cntNumY = 0;
-		}
-		
-		return hintArrY;
-	
-	
-	}
-	
-	
 
 }
