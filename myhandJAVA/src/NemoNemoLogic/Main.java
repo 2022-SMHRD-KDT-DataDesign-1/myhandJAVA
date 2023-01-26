@@ -38,23 +38,28 @@ public class Main {
 				String pw = sc.next();
 				DTO dto = new DTO(id, pw);
 				boolean isCheck = ct.login(dto);
-				if (isCheck) {
-					System.out.println("==========난이도 선택==========");
-					System.out.println("[1] 5X5  [2] 10X10");
-					System.out.println("============================");
-					int level_choice = sc.nextInt();
-					
-					ct.levelChoice(level_choice);
-					
-					System.out.println("플레이할 그림을 선택하세요");
-					int game_select = sc.nextInt();
-					ct.gameChoice(game_select);
-					
-				} else {
-					continue;
+				while(true) {
+					if (isCheck) {
+						System.out.println("==========난이도 선택==========");
+						System.out.println("[1] 5X5  [2] 10X10 [3] 로그아웃 ");
+						System.out.println("============================");
+						int level_choice = sc.nextInt();
+						if(level_choice == 3) {
+							System.out.println("로그아웃 되었습니다.");
+							break;
+						}
+						ct.levelChoice(level_choice);
+						
+						System.out.println("플레이할 그림을 선택하세요");
+						int game_select = sc.nextInt();
+						ct.gameChoice(game_select);
+						
+					} else {
+						System.out.println("번호를 다시 입력 해 주세요");
+					}
 				}
 			}else if (choice == 3) {
-				System.out.println("게임을 종료합니다");
+				System.out.println("게임을 종료합니다.");
 				break;
 			}else {
 				System.out.println("올바른 숫자를 입력해주세요");
