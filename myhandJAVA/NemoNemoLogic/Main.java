@@ -10,9 +10,11 @@ public class Main {
 		
 		Controller ct = new Controller();
 		Scanner sc = new Scanner(System.in);
-		
+		MusicPlayer player = new MusicPlayer();
+		MusicVO m = player.play(0); // 메인음악
 		
 		welcome();
+		
 		
 		
 		while(true) {
@@ -58,12 +60,18 @@ public class Main {
 						
 						System.out.println("플레이할 그림을 선택하세요");
 						int game_select = sc.nextInt();
+						player.stop();
+						player.play(1); // 게임 플레이음악
 						ct.gameChoice(game_select);
+					
 						
 					} 
 				}
 			}else if (choice == 3) {
 				System.out.println("-------------게임을 종료합니다------------");
+				// 일단 멈춤
+				sleep();
+				player.stop();
 				break;
 			}else {
 				System.out.println("올바른 숫자를 입력해주세요");
@@ -82,13 +90,14 @@ public class Main {
 
 			System.out.println();
 			System.out.println("━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━");
-			System.out.println(" \t\t                         ___                                           \n"
-					+ "  \t\t                        /\\_ \\                                          \n"
-					+ " \t\t    __  __  __     __   \\//\\ \\      ___     ___     ___ ___       __   \n"
-					+ " \t\t   /\\ \\/\\ \\/\\ \\  /'__`\\   \\ \\ \\    /'___\\  / __`\\ /' __` __`\\   /'__`\\ \n"
-					+ " \t\t   \\ \\ \\_/ \\_/ \\/\\  __/    \\_\\ \\_ /\\ \\__/ /\\ \\L\\ \\/\\ \\/\\ \\/\\ \\ /\\  __/ \n"
-					+ "  \t\t   \\ \\___x___/'\\ \\____\\   /\\____\\\\ \\____\\\\ \\____/\\ \\_\\ \\_\\ \\_\\\\ \\____\\\n"
-					+ "   \t\t   \\/__//__/   \\/____/   \\/____/ \\/____/ \\/___/  \\/_/\\/_/\\/_/ \\/____/");
+			System.out.println("                       ___                                           \n"
+					+ "                      /\\_ \\                                          \n"
+					+ "  __  __  __     __   \\//\\ \\      ___     ___     ___ ___       __   \n"
+					+ " /\\ \\/\\ \\/\\ \\  /'__`\\   \\ \\ \\    /'___\\  / __`\\ /' __` __`\\   /'__`\\ \n"
+					+ " \\ \\ \\_/ \\_/ \\/\\  __/    \\_\\ \\_ /\\ \\__/ /\\ \\L\\ \\/\\ \\/\\ \\/\\ \\ /\\  __/ \n"
+					+ "  \\ \\___x___/'\\ \\____\\   /\\____\\\\ \\____\\\\ \\____/\\ \\_\\ \\_\\ \\_\\\\ \\____\\\n"
+					+ "   \\/__//__/   \\/____/   \\/____/ \\/____/ \\/___/  \\/_/\\/_/\\/_/ \\/____/\n"
+					+ "                                                                     ");
 			System.out.println();
 			sleep();
 			System.out.println("\t __  __                                   __  __                                  \n"
