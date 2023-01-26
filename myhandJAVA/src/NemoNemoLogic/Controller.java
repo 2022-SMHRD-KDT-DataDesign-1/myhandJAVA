@@ -37,6 +37,7 @@ public class Controller {
 			return isCheck = true;
 		} else {
 			System.out.println("아이디나 비밀번호를 확인하세요.");
+			System.out.println();
 			return isCheck;
 		}
 	}
@@ -49,21 +50,27 @@ public class Controller {
 		String[] nums = {"①","②","③","④","⑤"};
 		ArrayList<Integer> game_seq = dao1.levelChoice(level_choice);
 		while (true) {
-			if (level_choice == 1) {
+			if (level_choice == 1) { 
+				sleep();
+				System.out.println();
 				System.out.println("---------------5X5---------------");
 				for (int i = 0; i < game_seq.size(); i++) {
 					System.out.print(nums[i]+"\t");
 //					System.out.print("[" + game_seq.get(i) + "] ");
 				}
-				System.out.println("---------------------------------");
+				System.out.println();
+				System.out.println("---------------------------------\n");
 				break;
 			} else if (level_choice == 2) {
+				sleep();
+				System.out.println();
 				System.out.println("--------------10X10--------------");
 				for (int i = 0; i < game_seq.size(); i++) {
 					System.out.print(nums[i]+"\t");
 //					System.out.print("[" + game_seq.get(i) + "] ");
 				}
-				System.out.println("---------------------------------");
+				System.out.println();
+				System.out.println("---------------------------------\n");
 				break;
 			} else {
 				System.out.println("올바른 숫자를 입력하세요");
@@ -121,6 +128,8 @@ public class Controller {
 		// 정답 체크할 변수
 		int resCheck = 0;
 		int userCheck = 0;
+		System.out.println();
+		sleep();
 		
 		for (int i = 0; i < res.length; i++) {
 			for (int j = 0; j < res.length; j++) {
@@ -213,7 +222,7 @@ public class Controller {
 
 		System.out.println();
 		System.out.println("  ① 다시 도전하기  ② 돌아가기");
-		System.out.println("----------------------------------");
+		System.out.println("----------------------------------\n");
 		int re_select = sc.nextInt();
 		if (re_select == 1) {
 			gamePlay();
@@ -232,7 +241,7 @@ public class Controller {
 		System.out.println("---------------GAME--------------");
 		System.out.println("ː xxx 님              코인 : 5개  ː ");
 		System.out.println("ː                    힌트 : 0개   ː ");
-		System.out.println("---------------------------------");
+		System.out.println("---------------------------------\n");
 		
 
 		System.out.println("GAME");
@@ -247,7 +256,7 @@ public class Controller {
 		}else if (life == 0) {
 			System.out.println("ː                          "+stars[3]+"  ː");								
 		}
-		System.out.println("---------------------------------");
+		System.out.println("---------------------------------\n");
 		
 		
 		if (life == 0) {
@@ -255,15 +264,17 @@ public class Controller {
 			System.out.println("ː         ♡ 목숨이 0이 되었어요!                ː");
 			System.out.println("ː    목숨을 구입해서 계속 플레이 하시겠습니까?       ː");
 			System.out.println("ː ① 네! 계속할래요  ② 아니요 ㅠㅠ 포기하겠습니다     ː");
-			System.out.println("=============================================");
+			System.out.println("=============================================\n");
 			int yesOrNo = sc.nextInt();
 
 			if (yesOrNo == 1) {
 				System.out.println("--------------돌려돌려--------------");
 				System.out.println("ː 코인 3개를 사용해 목숨뽑기를 진행합니다 ː ");
-				System.out.println("----------------------------------");
+				System.out.println("----------------------------------\n");
 				System.out.println();
 				sleep();
+				
+			
 //				gaCha();
 
 			} else if (yesOrNo == 2) {
@@ -323,7 +334,7 @@ public class Controller {
 		System.out.println("----------------------------------");
 		System.out.println("ː         "+num+"개의 목숨 UP            ː ");
 		System.out.println("ː     ① 계속하기     ② 돌아가기      ː ");
-		System.out.println("----------------------------------");
+		System.out.println("----------------------------------\n");
 		
 		int life_select = sc.nextInt();
 
