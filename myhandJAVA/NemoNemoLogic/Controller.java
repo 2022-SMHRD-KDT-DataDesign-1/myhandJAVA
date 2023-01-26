@@ -85,10 +85,11 @@ public class Controller {
 	public static void gameChoice(int game_select) {
 		DAO dao1 = new DAO();
 		int num = 0;
+		int a = 0;
 		if (game_select==1) {
-			int a = 5;
+			a = 5;
 		} else {
-			int a = 10;
+			a = 10;
 		}
 		int[][] res = new int[a][a];
 		// ans는 답 데이터
@@ -112,7 +113,7 @@ public class Controller {
 			res = arrMake(ans, num);
 
 			// 문제 
-			playGame(num, res);
+			playGame(num, res, game_select);
 		} else {
 			System.out.println("올바른 숫자를 입력하세요");
 		}
@@ -231,7 +232,7 @@ public class Controller {
 					System.out.println("흭득 코인 없음");
 				}
 				dao1.userGame(userSeq , game_select);
-				
+				break;
 			}
 
 		} // while문 종료
