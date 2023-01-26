@@ -163,7 +163,7 @@ public class DAO {
 		return row;
 	}
 
-	public void userGame(int userSeq ,int game_select) {
+	public void userGame(int userSeq ,int game_select , String time) {
 		int row = 0;
 		int check = 0;
 		getCon();
@@ -183,7 +183,7 @@ public class DAO {
 			try {
 				String sql = "UPDATE USER_GAME_INFO SET GAME_TIME = ? WHERE USER_SEQ = ? AND GAME_SEQ = ? ";
 				psmt = conn.prepareStatement(sql);
-				psmt.setString(1, "");    //  클리어 타임
+				psmt.setString(1, time);    //  클리어 타임
 				psmt.setInt(2, userSeq);
 				psmt.setInt(3, game_select);
 				row = psmt.executeUpdate();
@@ -195,11 +195,11 @@ public class DAO {
 			}
 		}else {
 			try {
-				String sql = "INSERT INTO USER_GAME_INFO VALUES ( ? , ? , ? , 1 )";
+				String sql = "INSERT INTO USER_GAME_INFO ( USER_SEQ , GAME_SEQ , GAME_TIME , GAME_CLEAR ) VALUES ( ? , ? , ? , 1 )";
 				psmt = conn.prepareStatement(sql);
 				psmt.setInt(1, userSeq);
 				psmt.setInt(2, game_select);
-				psmt.setString(3,"");         // 클리어 타임
+				psmt.setString(3,time);         // 클리어 타임
 				row = psmt.executeUpdate();
 			} catch (SQLException e) {
 				System.out.println("SQL 전송 실패");
