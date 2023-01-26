@@ -23,6 +23,7 @@ ArrayList<MusicVO> musiclist = new ArrayList<>();
 		
 		musiclist.add(new MusicVO(".//music/트럼펫.mp3")); // 클리어 - 6
 		
+		musiclist.add(new MusicVO(".//music/우는사람.mp3")); // 목숨 1개남았을때 - 7
 		
 		musiclist.add(new MusicVO(".//music/Error.mp3")); 
 		musiclist.add(new MusicVO(".//music/Coin.mp3"));

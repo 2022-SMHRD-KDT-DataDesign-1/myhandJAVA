@@ -8,7 +8,12 @@ import NemoNemoLogic.DAO;
 import NemoNemoLogic.DTO;
 
 public class Controller {
+	
+//	MusicPlayer player = new MusicPla0yer();
+	
 	static Scanner sc = new Scanner(System.in);
+	static MusicPlayer player = new MusicPlayer();
+	MusicVO m = player.play(0); // 메인음악
 	DAO dao = new DAO();
 	int row = 0;
 	static String userNick = "";
@@ -58,7 +63,10 @@ public class Controller {
 		ArrayList<Integer> game_seq = dao1.levelChoice(level_choice);
 		while (true) {
 			if (level_choice == 1) {
+				
 				sleep();
+				player.stop();
+				player.play(1);
 				System.out.println();
 				System.out.println("---------------5X5---------------");
 				for (int i = 0; i < game_seq.size(); i++) {
@@ -199,6 +207,7 @@ public class Controller {
 
 		System.out.println("번호를 선택하세요.");
 		System.out.println();
+		System.out.println();
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr.length; j++) {
 				arr[i][j] = cnt;
@@ -207,6 +216,9 @@ public class Controller {
 			}
 			System.out.println();
 		}
+		System.out.println();
+		System.out.println();
+
 		// 목숨
 		int count = 3;
 		int[][] user = new int[num][num];
@@ -257,10 +269,13 @@ public class Controller {
 			} else if (count == 1) {
 				System.out.println("ː                          " + stars[2] + "  ː");
 			} else if (count == 0) {
+				player.stop();
+				player.play(7);
 				System.out.println("ː                          " + stars[3] + "  ː");
 			}
 			System.out.println("---------------------------------\n");
-
+			
+			
 			if (userCheck == resCheck) {
 				int row = 0;
 				DAO dao1 = new DAO();
@@ -295,6 +310,8 @@ public class Controller {
 				}
 				dao1.userGame(userSeq, gameSeq, time);
 				isCheck = true;
+				player.stop();
+				player.play(6);
 				break;
 			}
 
@@ -313,8 +330,7 @@ public class Controller {
 				System.out.println("----------------------------------\n");
 				System.out.println();
 				sleep();
-
-//			gaCha();
+				gaCha();
 
 			} else if (yesOrNo == 2) {
 				System.out.println("\t포기하셨습니다\n");
@@ -345,6 +361,7 @@ public class Controller {
 		System.out.println("----------------------------------\n");
 		int re_select = sc.nextInt();
 		if (re_select == 1) {
+			// gameplay없애고 다른거 넣어주세용 playGame넣어주세용 
 			gamePlay();
 		} else if (re_select == 2) {
 //			levelChoice();
@@ -417,19 +434,49 @@ public class Controller {
 
 	// 목숨 뽑기 // 3코인 차감
 	public static void gaCha() {
+		player.stop();
+		player.play(2);
 		Random rd = new Random();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("  Λ＿Λ\n" + "（ㆍωㆍ)つ━☆*。\n" + "⊂　　 ノ 　　　.뾰\n" + "　し-Ｊ　　　°。로 *´¨)\n"
-				+ "　　　　　　..　.· ´¸.·롱*´¨) ¸.·*¨)\n" + "　　　　　　　　　　(¸.·´ ( ¸.'*\n" + "");
+		System.out.println("\r\n"
+				+ "█▄▄░░░░░░░░░░▄▄▄▄▄▄░░░░░░░░░░▄▄█\r\n"
+				+ "█████▄░░░░░▄███▀▀███▄░░░░░▄█████\r\n"
+				+ "███████▄░░▄██▀░░░░▀████▄▄██████▀\r\n"
+				+ "░██████████▀░░▀░░▀░░▀█████████▀░\r\n"
+				+ "░░▀████████░░░░▀▀░░░░███████▀░░░\r\n"
+				+ "░░░░▀▀██████▄░▀▀▀▀░▄██████░░░░░░\r\n"
+				+ "░░░░░░░▀▀██▀██████████▀▀░░░░░░░░\r\n"
+				+ "░░░░░░░░░▄▄██████████▄▄░░░░░░░░░\r\n"
+				+ "░░░░░░░▄██▀▀░██████░▀▀██▄░░░░░░░\r\n"
+				+ "░░░░░▄██▀░░░░██████░░░░▀██▄░░░░░\r\n"
+				+ "░░▄░██▀░░░░▄████████▄░░░░▀██▄▄░░\r\n"
+				+ "░░▀▀▀░░░░░████████████░░░░░▀▀▀░░\r\n"
+				+ "░░░░░░░░░██████████████░░░░░░░░░\r\n"
+				+ "░░░░░░░░████████████████░░░░░░░░\r\n"
+				+ "░░░░░░░██████████████████░░░░░░░\r\n"
+				+ "░░░░░░░░░░░░▄█░░░░█▄░░░░░░░░░░░░\r\n"
+				+ "\r\n"
+				+ "\r\n"
+				+ "");
+		sleep();
+		sleep();
 		int num = rd.nextInt(4);
 		if (num == 0) {
+			player.stop();
+			player.play(3);
 			System.out.println("╭ ⁀ ⁀ ╮\n" + "( '👅'　　)\n" + "╰ ‿ ‿ ╯\n" + "　　　　　　　　╭ ⁀ ⁀ ╮\n" + "　　　　　　　　( '👅'　　)\n"
 					+ "　　　　　　　　╰ ‿ ‿ ╯\n" + "╭ ⁀ ⁀ ╮\n" + "( '👅'　　)\n" + "╰ ‿ ‿ ╯");
 		} else if (num == 1) {
+			player.stop();
+			player.play(4);
 			System.out.print("\t (\\_/)\n" + "\t( •.• )\n" + "\t/ > •‧:❤️:‧•");
 		} else if (num == 2) {
+			player.stop();
+			player.play(4);
 			System.out.println("\t (\\_/)\n" + "\t( •.• )\n" + "\t/ > •‧:❤️❤️:‧•");
 		} else if (num == 3) {
+			player.stop();
+			player.play(5);
 			System.out.println("\t (\\_/)\n" + "\t( •.• )\n" + "\t/ > •‧:❤️❤️❤️:‧•");
 		}
 		sleep();

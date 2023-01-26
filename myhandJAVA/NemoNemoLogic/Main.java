@@ -10,8 +10,8 @@ public class Main {
 		
 		Controller ct = new Controller();
 		Scanner sc = new Scanner(System.in);
-		MusicPlayer player = new MusicPlayer();
-		MusicVO m = player.play(0); // 메인음악
+//		MusicPlayer player = new MusicPlayer();
+//		MusicVO m = player.play(0); // 메인음악
 		int row = 0;
 		welcome();
 		
@@ -46,6 +46,13 @@ public class Main {
 					System.out.println("---------------------------------\n");
 					DTO dto = new DTO(id, pw);
 					boolean isCheck = ct.login(dto);
+					System.out.println("=============================================");
+					System.out.println("ː            네모네모 로직 게임 설명             ː");
+					System.out.println("ː                                           ː");
+					System.out.println("ː   1. 쓰인 숫자만큼 연속된 칸을 칠할것 !          ː");
+					System.out.println("ː   2. 숫자와 숫자 사이에는 최소한 한 칸을 비울 것 ! ː");
+					System.out.println("ː   3. 숫자의 순서와 칠해진 칸의 순서가 일치할 것 !  ː");
+					System.out.println("=============================================\n");
 						if (isCheck) {
 							while(true) {
 								sleep();
@@ -61,8 +68,8 @@ public class Main {
 								
 								System.out.println("플레이할 그림을 선택하세요");
 								int game_select = sc.nextInt();
-								player.stop();
-								player.play(1); // 게임 플레이음악
+//								player.stop();
+//								player.play(1); // 게임 플레이음악
 								row = ct.gameChoice(game_select);
 								if(row > 0) {
 									continue;
@@ -76,7 +83,7 @@ public class Main {
 				System.out.println("-------------게임을 종료합니다------------");
 				// 일단 멈춤
 				sleep();
-				player.stop();
+//				player.stop();
 				break;
 			}else {
 				System.out.println("올바른 숫자를 입력해주세요");
