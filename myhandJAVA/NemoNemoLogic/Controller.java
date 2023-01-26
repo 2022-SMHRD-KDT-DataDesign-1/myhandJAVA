@@ -284,9 +284,6 @@ public class Controller {
 	}
 	
 	
-
-	
-
 	public static void gamePlay() {
 		int life = 0;
 		Scanner sc = new Scanner(System.in);
@@ -402,9 +399,6 @@ public class Controller {
 			System.out.println("올바른 숫자를 입력하세요");
 		}
 	}
-	
-	
-	
 	
 	
 	public static void printQuestion(int[][] ans, int[][] user, int numX) {
