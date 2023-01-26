@@ -1,6 +1,5 @@
 package NemoNemoLogic;
 
-import java.util.Random;
 import java.util.Scanner;
 
 
@@ -10,7 +9,7 @@ public class Main {
 		
 		Controller ct = new Controller();
 		Scanner sc = new Scanner(System.in);
-		
+		MusicPlayer_C player = new MusicPlayer_C();
 		
 		welcome();
 		
@@ -79,8 +78,10 @@ public class Main {
 	
 	// welcome
 		public static void welcome() {
+			MusicPlayer_C player = new MusicPlayer_C();
 
 			System.out.println();
+			MusicVO m = player.play();
 			System.out.println("━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━━━━━⊱⋆⊰━━━━");
 			System.out.println(" \t\t                         ___                                           \n"
 					+ "  \t\t                        /\\_ \\                                          \n"

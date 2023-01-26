@@ -34,6 +34,9 @@ public class Controller {
 			userNick = res.getNick();
 			System.out.println("로그인 완료");
 			System.out.println(res.getNick() + "님 반갑습니다.\n");
+			System.out.println("╭◜◝ ͡ ◜◝╮\r\n"
+					+ "( ＊•◡•＊ )\r\n"
+					+ "╰◟◞ ͜ ◟◞╯\n");
 			return isCheck = true;
 		} else {
 			System.out.println("아이디나 비밀번호를 확인하세요.");
@@ -51,7 +54,6 @@ public class Controller {
 		ArrayList<Integer> game_seq = dao1.levelChoice(level_choice);
 		while (true) {
 			if (level_choice == 1) { 
-				sleep();
 				System.out.println();
 				System.out.println("---------------5X5---------------");
 				for (int i = 0; i < game_seq.size(); i++) {
@@ -62,7 +64,6 @@ public class Controller {
 				System.out.println("---------------------------------\n");
 				break;
 			} else if (level_choice == 2) {
-				sleep();
 				System.out.println();
 				System.out.println("--------------10X10--------------");
 				for (int i = 0; i < game_seq.size(); i++) {
