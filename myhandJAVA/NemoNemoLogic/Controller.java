@@ -15,6 +15,7 @@ public class Controller {
 	static int userCoin = 0;
 	static int level = 0;
 	static int userSeq = 0;
+	static int gameSeq = 0;
 	static long start;
 	static long end;
 	static String time;
@@ -95,15 +96,17 @@ public class Controller {
 		}
 		int[][] res = new int[a][a];
 		// ans는 답 데이터
-		String ans = dao1.gameChoice(level, game_select);
-		if (ans == null) {
+//		String ans = dao1.gameChoice(level, game_select);
+		GameDTO ans = dao1.gameChoice(level, game_select);
+		gameSeq = ans.getGameSeq();
+		if (ans.getGameAns() == null) {
 			System.out.println("게임 정보 오류");
 
 		} else if (level == 1) { // 5*5
 			num = 5;
 			System.out.println(num + " x " + num);
 			// 답데이터 res[][]배열에 저장
-			res = arrMake(ans, num);
+			res = arrMake(ans.getGameAns(), num);
 
 			// 문제 
 			playGame(num, res , game_select);
@@ -112,7 +115,7 @@ public class Controller {
 			num = 10;
 			System.out.println(num + " x " + num);
 			// 답데이터 res[][]배열에 저장
-			res = arrMake(ans, num);
+			res = arrMake(ans.getGameAns(), num);
 
 			// 문제 
 			playGame(num, res, game_select);
@@ -246,7 +249,7 @@ public class Controller {
 				}else {
 					System.out.println("흭득 코인 없음");
 				}
-				dao1.userGame(userSeq , game_select , time);
+				dao1.userGame(userSeq , gameSeq , time);
 				break;
 			}
 

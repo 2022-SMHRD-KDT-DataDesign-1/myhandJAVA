@@ -123,18 +123,19 @@ public class DAO {
 	
 	
 	// 게임 난이도에 따른 게임 종류(개수) 반환
-	public String gameChoice(int level, int game_select) {
-		String answer = "";
+	public GameDTO gameChoice(int level, int game_select) {
+		GameDTO ans = new GameDTO(0, "");
 		getCon();
 		try {
-			String sql = "SELECT * FROM (SELECT ROWNUM AS RN, game_ans FROM GAME_INFO WHERE game_level = ? order by game_seq) WHERE ROWNUM  = ?";
+			String sql = "SELECT * FROM (SELECT ROWNUM AS RN, game_seq, game_ans FROM GAME_INFO WHERE game_level = ? order by game_seq) WHERE ROWNUM  = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, level);
 			psmt.setInt(2, game_select);
 			rs = psmt.executeQuery();
 			
 			while (rs.next()) {
-				answer = rs.getString(2);
+				ans.setGameAns(rs.getString(2));
+				ans.setGameSeq(rs.getInt(1));
 			}
 		} catch (SQLException e) {
 			System.out.println("game seq : 데이터베이스 연결 실패");
@@ -142,7 +143,7 @@ public class DAO {
 		} finally {
 			getClose();
 		}
-		return answer;
+		return ans;
 	}
 	
 	public int updateCoin(int coin , int userSeq) {

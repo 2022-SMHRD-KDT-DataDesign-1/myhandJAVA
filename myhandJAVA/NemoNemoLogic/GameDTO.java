@@ -8,13 +8,17 @@ public class GameDTO {
 	private String gameAns;
 	
 	public GameDTO(Integer userSeq, Integer gameSeq, String gameTime, Integer gameClear, String gameAns) {
-		super();
 		this.userSeq = userSeq;
 		this.gameSeq = gameSeq;
 		this.gameTime = gameTime;
 		this.gameClear = gameClear;
 		this.gameAns = gameAns;
 	}
+	public GameDTO(Integer gameSeq, String gameAns) {
+		this.gameSeq = gameSeq;
+		this.gameAns = gameAns;
+	}
+	
 	public Integer getUserSeq() {
 		return userSeq;
 	}
