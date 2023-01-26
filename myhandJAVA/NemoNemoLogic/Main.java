@@ -36,7 +36,8 @@ public class Main {
 				System.out.println("---------------------------------\n");
 
 			}else if (choice == 2) {
-				while(true) {
+				boolean isCheck = false;
+				while(!isCheck) {
 				System.out.println("---------------로그인-------------");
 				// 로그인
 				System.out.print("아이디를 입력해주세요 : ");
@@ -45,7 +46,9 @@ public class Main {
 				String pw = sc.next(); 
 				System.out.println("---------------------------------\n");
 				DTO dto = new DTO(id, pw);
-				boolean isCheck = ct.login(dto);
+				isCheck = ct.login(dto);
+				}
+				while (isCheck) {
 					if (isCheck) {
 						sleep();
 						System.out.println("-------------난이도선택------------");
@@ -63,7 +66,6 @@ public class Main {
 						player.stop();
 						player.play(1); // 게임 플레이음악
 						ct.gameChoice(game_select);
-					
 						
 					} 
 				}

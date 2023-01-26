@@ -87,7 +87,7 @@ public class Controller {
 	// 난이도에 따른 게임 선택
 	public static void gameChoice(int game_select) {
 		DAO dao1 = new DAO();
-		
+		boolean isCheck = false;
 		int num = 0;
 		int a = 0;
 		if (game_select==1) {
@@ -111,7 +111,7 @@ public class Controller {
 			res = arrMake(ans.getGameAns(), num);
 
 			// 문제 
-			playGame(num, res , game_select);
+			isCheck = playGame(num, res , game_select);
 
 		} else if (level == 2) { // 10*10
 			num = 10;
@@ -120,11 +120,11 @@ public class Controller {
 			res = arrMake(ans.getGameAns(), num);
 
 			// 문제 
-			playGame(num, res, game_select);
+			isCheck = playGame(num, res, game_select);
 		} else {
 			System.out.println("올바른 숫자를 입력하세요");
 		}
-
+		
 	}
 
 	// 답데이터 이중배열로 변경
@@ -145,8 +145,9 @@ public class Controller {
 
 
 	// Game Start!
-	public static void playGame(int num, int[][] res , int game_select) {
+	public static boolean playGame(int num, int[][] res , int game_select) {
 		Scanner sc = new Scanner(System.in);
+		boolean isCheck = false;
 		// 정답 체크할 변수
 		int resCheck = 0;
 		int userCheck = 0;
@@ -239,6 +240,7 @@ public class Controller {
 				
 				end = System.currentTimeMillis();
 				time = Long.toString((end - start) / 1000 / 60) + "," + Long.toString((end - start) / 1000 % 60);
+				System.out.println(Long.toString((end - start) / 1000 / 60) + "분" + Long.toString((end - start) / 1000 % 60)+"초");
 				if(level == 1 && count == 3) {
 					coin = 1;
 				}else if(level == 2) {
@@ -250,6 +252,7 @@ public class Controller {
 					userCoin += coin;
 				}
 				dao1.userGame(userSeq , gameSeq , time);
+				isCheck = true;
 				break;
 			}
 
@@ -257,6 +260,7 @@ public class Controller {
 		if (cnt == 0) {
 			System.out.println("목숨이 없습니다.");
 		}
+		return isCheck;
 	}
 	
 
