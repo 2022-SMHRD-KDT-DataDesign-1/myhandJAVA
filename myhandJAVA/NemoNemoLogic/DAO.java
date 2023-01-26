@@ -177,8 +177,6 @@ public class DAO {
 		} catch (SQLException e1) {
 			System.out.println("SQL 전송 실패");
 			e1.printStackTrace();
-		}finally {
-			getClose();
 		}
 		if (check > 0) {
 			try {
@@ -191,8 +189,6 @@ public class DAO {
 			} catch (SQLException e) {
 				System.out.println("SQL 전송 실패");
 				e.printStackTrace();
-			}finally {
-				getClose();
 			}
 		}else {
 			try {
@@ -209,6 +205,10 @@ public class DAO {
 				getClose();
 			}
 		}
+	}
+
+	public void rank(int userSeq, int gameSeq) {
+	
 	}
 }
 

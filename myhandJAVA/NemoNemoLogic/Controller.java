@@ -87,6 +87,7 @@ public class Controller {
 	// 난이도에 따른 게임 선택
 	public static void gameChoice(int game_select) {
 		DAO dao1 = new DAO();
+		
 		int num = 0;
 		int a = 0;
 		if (game_select==1) {
@@ -99,6 +100,7 @@ public class Controller {
 //		String ans = dao1.gameChoice(level, game_select);
 		GameDTO ans = dao1.gameChoice(level, game_select);
 		gameSeq = ans.getGameSeq();
+		dao1.rank(userSeq,gameSeq);
 		if (ans.getGameAns() == null) {
 			System.out.println("게임 정보 오류");
 
@@ -196,8 +198,10 @@ public class Controller {
 				choice = sc.nextInt();
 
 				if (res[(choice - 1) / num][(choice - 1) % num] == 1) {
-					user[(choice-1) / num][(choice - 1) % num] = 1;
-					userCheck++;
+					if(user[(choice-1) / num][(choice - 1) % num] != 1) {
+						user[(choice-1) / num][(choice - 1) % num] = 1;
+						userCheck++;
+					}
 				} else {
 					count--;
 					System.out.println("다시 확인하세요.");
@@ -215,7 +219,6 @@ public class Controller {
 				}
 			}
 
-			System.out.println(userCheck);
 			if (userCheck == resCheck) {
 				int row = 0;
 				DAO dao1 = new DAO();
@@ -230,10 +233,10 @@ public class Controller {
 						} else {
 							System.out.print("□" + " ");
 						}
-						
 					}
 					System.out.println();
 				}
+				
 				end = System.currentTimeMillis();
 				time = Long.toString((end - start) / 1000 / 60) + "," + Long.toString((end - start) / 1000 % 60);
 				if(level == 1 && count == 3) {
@@ -243,10 +246,8 @@ public class Controller {
 				}
 				row = dao1.updateCoin(coin, userSeq);
 				if(row > 0) {
-					System.out.println(coin+"코인 흭득!");
+					System.out.println("\n"+coin+"코인 흭득!");
 					userCoin += coin;
-				}else {
-					System.out.println("흭득 코인 없음");
 				}
 				dao1.userGame(userSeq , gameSeq , time);
 				break;
