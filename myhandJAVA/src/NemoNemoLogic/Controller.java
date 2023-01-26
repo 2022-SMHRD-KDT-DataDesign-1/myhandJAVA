@@ -98,8 +98,13 @@ public class Controller {
 			playGame(num, res);
 
 		} else if (level == 2) { // 10*10
-			System.out.println(num + " x " + num);
 			num = 10;
+			System.out.println(num + " x " + num);
+			// 답데이터 res[][]배열에 저장
+			res = arrMake(ans, num);
+
+			// 문제 
+			playGame(num, res);
 		} else {
 			System.out.println("올바른 숫자를 입력하세요");
 		}
@@ -161,7 +166,11 @@ public class Controller {
 		while (count > 0) {
 			System.out.println("현재 목숨 : " + count);
 			
-			printQuestion(res, user);
+			if (level == 1) {
+				printQuestion(res, user, 5);
+			} else if (level == 2) {
+				printQuestion(res, user, 10);
+			}
 			
 			System.out.print("선택을 원하면 1번, X를 원하면 2번 선택 >>");
 			int oxSelect = sc.nextInt();
@@ -348,11 +357,11 @@ public class Controller {
 	
 	
 	
-	public static void printQuestion(int[][] ans, int[][] user) {
+	public static void printQuestion(int[][] ans, int[][] user, int numX) {
 		// x hint
-		String[] hintArrX = getHintArrX(ans);
+		String[] hintArrX = getHintArrX(ans, numX);
 		// y hint
-		String[] hintArrY = getHintArrY(ans);
+		String[] hintArrY = getHintArrY(ans, numX);
 
 		int hintZone = (ans.length + 1) / 2;
 		int entireZone = (ans.length + 1) / 2 + ans.length;
@@ -395,11 +404,15 @@ public class Controller {
 		
 	}
 
-	public static String[] getHintArrX(int[][] ans) {
+	public static String[] getHintArrX(int[][] ans, int numX) {
 
 		int cntNumX = 0;
-		int numX = 5;
-		String[] hintArrX = { "", "", "", "", "" };
+//		int numX = 5;
+		String[] hintArrX = new String[numX];
+		for (int i = 0; i < hintArrX.length; i++) {
+			hintArrX[i] = "";
+		}
+//		String[] hintArrX = { "", "", "", "", "" };
 		for (int i = 0; i < ans.length; i++) {
 			for (int j = 0; j < hintArrX.length; j++) {
 				if (ans[i][j] == 1) {
@@ -421,11 +434,15 @@ public class Controller {
 		return hintArrX;
 	}
 
-	public static String[] getHintArrY(int[][] ans) {
+	public static String[] getHintArrY(int[][] ans, int numY) {
 		
 		int cntNumY = 0;
-		int numY = 5;
-		String[] hintArrY = { "", "", "", "", "" };
+//		int numY = 5;
+		String[] hintArrY = new String[numY];
+		for (int i = 0; i < hintArrY.length; i++) {
+			hintArrY[i] = "";
+		}
+//		String[] hintArrY = { "", "", "", "", "" };
 		for (int i = 0; i < ans.length; i++) {
 			for (int j = 0; j < hintArrY.length; j++) {
 				if (ans[j][i] == 1) {
