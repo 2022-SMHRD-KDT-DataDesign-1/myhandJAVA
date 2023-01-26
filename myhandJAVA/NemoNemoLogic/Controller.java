@@ -34,9 +34,9 @@ public class Controller {
 		boolean isCheck = false;
 		DTO res = dao.login(dto);
 //		boolean res = dao.login(dto);
-		userSeq = res.getUserSeq();
-		userCoin = res.getUserCoin();
 		if (res.getNick() != null) {
+			userSeq = res.getUserSeq();
+			userCoin = res.getUserCoin();
 			userNick = res.getNick();
 			System.out.println("로그인 완료");
 			System.out.println(res.getNick() + "님 반갑습니다.\n");

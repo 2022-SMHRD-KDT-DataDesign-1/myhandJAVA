@@ -134,8 +134,8 @@ public class DAO {
 			rs = psmt.executeQuery();
 			
 			while (rs.next()) {
-				ans.setGameAns(rs.getString(2));
-				ans.setGameSeq(rs.getInt(1));
+				ans.setGameAns(rs.getString(3));
+				ans.setGameSeq(rs.getInt(2));
 			}
 		} catch (SQLException e) {
 			System.out.println("game seq : 데이터베이스 연결 실패");
