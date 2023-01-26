@@ -12,11 +12,13 @@ public class Controller {
 	DAO dao = new DAO();
 	int row = 0;
 	static String userNick = "";
+	static int userCoin = 0;
 	static int level = 0;
 	static int userSeq = 0;
+	static int gameSeq = 0;
 	static long start;
 	static long end;
-	
+	static String time;
 	public void join(DTO dto) { // 회원가입
 		row = dao.join(dto);
 		if (row > 0) {
@@ -33,6 +35,7 @@ public class Controller {
 		DTO res = dao.login(dto);
 //		boolean res = dao.login(dto);
 		userSeq = res.getUserSeq();
+		userCoin = res.getUserCoin();
 		if (res.getNick() != null) {
 			userNick = res.getNick();
 			System.out.println("로그인 완료");
@@ -93,15 +96,17 @@ public class Controller {
 		}
 		int[][] res = new int[a][a];
 		// ans는 답 데이터
-		String ans = dao1.gameChoice(level, game_select);
-		if (ans == null) {
+//		String ans = dao1.gameChoice(level, game_select);
+		GameDTO ans = dao1.gameChoice(level, game_select);
+		gameSeq = ans.getGameSeq();
+		if (ans.getGameAns() == null) {
 			System.out.println("게임 정보 오류");
 
 		} else if (level == 1) { // 5*5
 			num = 5;
 			System.out.println(num + " x " + num);
 			// 답데이터 res[][]배열에 저장
-			res = arrMake(ans, num);
+			res = arrMake(ans.getGameAns(), num);
 
 			// 문제 
 			playGame(num, res , game_select);
@@ -110,7 +115,7 @@ public class Controller {
 			num = 10;
 			System.out.println(num + " x " + num);
 			// 답데이터 res[][]배열에 저장
-			res = arrMake(ans, num);
+			res = arrMake(ans.getGameAns(), num);
 
 			// 문제 
 			playGame(num, res, game_select);
@@ -120,6 +125,7 @@ public class Controller {
 
 	}
 
+	// 답데이터 이중배열로 변경
 	public static int[][] arrMake(String ans, int num) {
 		int[][] res = new int[num][num];
 		String[] arr = ans.split(",");
@@ -177,7 +183,6 @@ public class Controller {
 		
 		while (count > 0) {
 			System.out.println("현재 목숨 : " + count);
-			
 			if (level == 1) {
 				printQuestion(res, user, 5);
 			} else if (level == 2) {
@@ -230,7 +235,7 @@ public class Controller {
 					System.out.println();
 				}
 				end = System.currentTimeMillis();
-				System.out.println("시간 : " + (end - start) / 1000 / 60 + "분 "+(end - start) / 1000 % 60 + "초");
+				time = Long.toString((end - start) / 1000 / 60) + "," + Long.toString((end - start) / 1000 % 60);
 				
 				if(level == 1 && count == 3) {
 					coin = 1;
@@ -240,10 +245,11 @@ public class Controller {
 				row = dao1.updateCoin(coin, userSeq);
 				if(row > 0) {
 					System.out.println(coin+"코인 흭득!");
+					userCoin += coin;
 				}else {
 					System.out.println("흭득 코인 없음");
 				}
-				dao1.userGame(userSeq , game_select);
+				dao1.userGame(userSeq , gameSeq , time);
 				break;
 			}
 
@@ -278,7 +284,7 @@ public class Controller {
 	}
 	
 	
-	
+
 	
 
 	public static void gamePlay() {
@@ -336,6 +342,7 @@ public class Controller {
 
 		}
 	}
+	
 	// sleep 1초
 	public static void sleep() {
 		try {

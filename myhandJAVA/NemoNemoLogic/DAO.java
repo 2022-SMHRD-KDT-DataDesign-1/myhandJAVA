@@ -84,6 +84,7 @@ public class DAO {
 				if (rs.getString(4).equals(dto.getPw())) {
 					a.setNick(rs.getString(3));
 					a.setUserSeq(rs.getInt(1));
+					a.setUserCoin(5);
 					break;
 				}else {
 					a.setNick(null);
@@ -122,18 +123,19 @@ public class DAO {
 	
 	
 	// 게임 난이도에 따른 게임 종류(개수) 반환
-	public String gameChoice(int level, int game_select) {
-		String answer = "";
+	public GameDTO gameChoice(int level, int game_select) {
+		GameDTO ans = new GameDTO(0, "");
 		getCon();
 		try {
-			String sql = "SELECT * FROM (SELECT ROWNUM AS RN, game_ans FROM GAME_INFO WHERE game_level = ? order by game_seq) WHERE ROWNUM  = ?";
+			String sql = "SELECT * FROM (SELECT ROWNUM AS RN, game_seq, game_ans FROM GAME_INFO WHERE game_level = ? order by game_seq) WHERE ROWNUM  = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, level);
 			psmt.setInt(2, game_select);
 			rs = psmt.executeQuery();
 			
 			while (rs.next()) {
-				answer = rs.getString(2);
+				ans.setGameAns(rs.getString(2));
+				ans.setGameSeq(rs.getInt(1));
 			}
 		} catch (SQLException e) {
 			System.out.println("game seq : 데이터베이스 연결 실패");
@@ -141,7 +143,7 @@ public class DAO {
 		} finally {
 			getClose();
 		}
-		return answer;
+		return ans;
 	}
 	
 	public int updateCoin(int coin , int userSeq) {
@@ -162,7 +164,7 @@ public class DAO {
 		return row;
 	}
 
-	public void userGame(int userSeq ,int game_select) {
+	public void userGame(int userSeq ,int game_select , String time) {
 		int row = 0;
 		int check = 0;
 		getCon();
@@ -182,7 +184,7 @@ public class DAO {
 			try {
 				String sql = "UPDATE USER_GAME_INFO SET GAME_TIME = ? WHERE USER_SEQ = ? AND GAME_SEQ = ? ";
 				psmt = conn.prepareStatement(sql);
-				psmt.setString(1, "");    //  클리어 타임
+				psmt.setString(1, time);    //  클리어 타임
 				psmt.setInt(2, userSeq);
 				psmt.setInt(3, game_select);
 				row = psmt.executeUpdate();
@@ -194,11 +196,11 @@ public class DAO {
 			}
 		}else {
 			try {
-				String sql = "INSERT INTO USER_GAME_INFO VALUES ( ? , ? , ? , 1 )";
+				String sql = "INSERT INTO USER_GAME_INFO ( USER_SEQ , GAME_SEQ , GAME_TIME , GAME_CLEAR ) VALUES ( ? , ? , ? , 1 )";
 				psmt = conn.prepareStatement(sql);
 				psmt.setInt(1, userSeq);
 				psmt.setInt(2, game_select);
-				psmt.setString(3,"");         // 클리어 타임
+				psmt.setString(3,time);         // 클리어 타임
 				row = psmt.executeUpdate();
 			} catch (SQLException e) {
 				System.out.println("SQL 전송 실패");
