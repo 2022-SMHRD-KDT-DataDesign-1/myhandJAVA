@@ -14,7 +14,9 @@ public class Controller {
 	static String userNick = "";
 	static int level = 0;
 	static int userSeq = 0;
-
+	static long start;
+	static long end;
+	
 	public void join(DTO dto) { // 회원가입
 		row = dao.join(dto);
 		if (row > 0) {
@@ -169,6 +171,9 @@ public class Controller {
 		int count = 3;
 		int[][] user = new int[num][num];
 		int choice = 0;
+		
+		start = System.currentTimeMillis();
+		
 		while (count > 0) {
 			System.out.println("현재 목숨 : " + count);
 			
@@ -210,6 +215,10 @@ public class Controller {
 				DAO dao1 = new DAO();
 				int coin = 0;
 				System.out.println("정답");
+				
+				end = System.currentTimeMillis();
+				System.out.println("시간 : " + (end - start) / 1000 / 60 + "분 "+(end - start) / 1000 % 60 + "초");
+				
 				if(level == 1 && count == 3) {
 					coin = 1;
 				}else if(level == 2) {
