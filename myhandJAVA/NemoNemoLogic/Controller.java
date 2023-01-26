@@ -196,8 +196,10 @@ public class Controller {
 				choice = sc.nextInt();
 
 				if (res[(choice - 1) / num][(choice - 1) % num] == 1) {
-					user[(choice-1) / num][(choice - 1) % num] = 1;
-					userCheck++;
+					if(user[(choice-1) / num][(choice - 1) % num] != 1) {
+						user[(choice-1) / num][(choice - 1) % num] = 1;
+						userCheck++;
+					}
 				} else {
 					count--;
 					System.out.println("다시 확인하세요.");
@@ -215,7 +217,6 @@ public class Controller {
 				}
 			}
 
-			System.out.println(userCheck);
 			if (userCheck == resCheck) {
 				int row = 0;
 				DAO dao1 = new DAO();
@@ -230,10 +231,10 @@ public class Controller {
 						} else {
 							System.out.print("□" + " ");
 						}
-						
 					}
 					System.out.println();
 				}
+				
 				end = System.currentTimeMillis();
 				time = Long.toString((end - start) / 1000 / 60) + "," + Long.toString((end - start) / 1000 % 60);
 				
