@@ -12,7 +12,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		MusicPlayer player = new MusicPlayer();
 		MusicVO m = player.play(0); // 메인음악
-		
+		int row = 0;
 		welcome();
 		
 		
@@ -37,34 +37,39 @@ public class Main {
 
 			}else if (choice == 2) {
 				while(true) {
-				System.out.println("---------------로그인-------------");
-				// 로그인
-				System.out.print("아이디를 입력해주세요 : ");
-				String id = sc.next();
-				System.out.print("비밀번호를 입력해주세요 : ");
-				String pw = sc.next(); 
-				System.out.println("---------------------------------\n");
-				DTO dto = new DTO(id, pw);
-				boolean isCheck = ct.login(dto);
-					if (isCheck) {
-						sleep();
-						System.out.println("-------------난이도선택------------");
-						System.out.println("ː   ① 5X5    ② 10X10   ③ 로그아웃  ː ");
-						System.out.println("---------------------------------\n");
-						int level_choice = sc.nextInt();
-						if(level_choice == 3) {
-							System.out.println("로그아웃 되었습니다.");
-							break; 
-						}
-						ct.levelChoice(level_choice);
-						
-						System.out.println("플레이할 그림을 선택하세요");
-						int game_select = sc.nextInt();
-						player.stop();
-						player.play(1); // 게임 플레이음악
-						ct.gameChoice(game_select);
-					
-						
+					System.out.println("---------------로그인-------------");
+					// 로그인
+					System.out.print("아이디를 입력해주세요 : ");
+					String id = sc.next();
+					System.out.print("비밀번호를 입력해주세요 : ");
+					String pw = sc.next(); 
+					System.out.println("---------------------------------\n");
+					DTO dto = new DTO(id, pw);
+					boolean isCheck = ct.login(dto);
+						if (isCheck) {
+							while(true) {
+								sleep();
+								System.out.println("-------------난이도선택------------");
+								System.out.println("ː   ① 5X5    ② 10X10   ③ 로그아웃  ː ");
+								System.out.println("---------------------------------\n");
+								int level_choice = sc.nextInt();
+								if(level_choice == 3) {
+									System.out.println("로그아웃 되었습니다.");
+									break; 
+								}
+								ct.levelChoice(level_choice);
+								
+								System.out.println("플레이할 그림을 선택하세요");
+								int game_select = sc.nextInt();
+								player.stop();
+								player.play(1); // 게임 플레이음악
+								row = ct.gameChoice(game_select);
+								if(row > 0) {
+									continue;
+								}else {
+									break;
+								}
+							}
 					} 
 				}
 			}else if (choice == 3) {
