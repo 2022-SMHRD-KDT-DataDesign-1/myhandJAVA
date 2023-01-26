@@ -10,6 +10,7 @@ public class Controller {
 	int row = 0;
 	static String userNick = "";
 	static int level = 0;
+	static int userSeq = 0;
 
 	public void join(DTO dto) { // 회원가입
 		row = dao.join(dto);
@@ -26,7 +27,7 @@ public class Controller {
 		boolean isCheck = false;
 		DTO res = dao.login(dto);
 //		boolean res = dao.login(dto);
-
+		userSeq = res.getUserSeq();
 		if (res.getNick() != null) {
 			userNick = res.getNick();
 			System.out.println("로그인 완료");
@@ -81,7 +82,7 @@ public class Controller {
 			res = arrMake(ans, num);
 
 			// 문제 
-			playGame(num, res);
+			playGame(num, res , game_select);
 
 		} else if (level == 2) { // 10*10
 			System.out.println(num + "x" + num);
@@ -109,7 +110,7 @@ public class Controller {
 
 
 	// Game Start!
-	public static void playGame(int num, int[][] res) {
+	public static void playGame(int num, int[][] res , int game_select) {
 		Scanner sc = new Scanner(System.in);
 		// 정답 체크할 변수
 		int resCheck = 0;
@@ -183,8 +184,21 @@ public class Controller {
 
 			System.out.println(userCheck);
 			if (userCheck == resCheck) {
+				int row = 0;
+				DAO dao1 = new DAO();
+				int coin = 0;
 				System.out.println("정답");
-				break;
+				if(level == 1 && count == 3) {
+					coin = 1;
+				}else if(level == 2) {
+					coin = count;
+				}
+				row = dao1.updateCoin(coin, userSeq);
+				if(row > 0) {
+					System.out.println(coin+"코인 흭득!");
+				}
+				row = dao1.userGame(userSeq , game_select);
+				
 			}
 
 		} // while문 종료

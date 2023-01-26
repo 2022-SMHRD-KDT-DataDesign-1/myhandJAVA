@@ -83,6 +83,7 @@ public class DAO {
 			while (rs.next()) {
 				if (rs.getString(4).equals(dto.getPw())) {
 					a.setNick(rs.getString(3));
+					a.setUserSeq(rs.getInt(1));
 					break;
 				}else {
 					a.setNick(null);
@@ -142,6 +143,71 @@ public class DAO {
 		return answer;
 	}
 	
-	
+	public int updateCoin(int coin , int userSeq) {
+		getCon();
+		int row = 0;
+		try {
+			String sql = "UPDATE USER_INFO SET USER_COIN = USER_COIN + ? WHERE USER_SEQ = ? ";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, coin);
+			psmt.setInt(2, userSeq);
+			row = psmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("코인 업데이트 실패");
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+		return row;
+	}
+
+	public int userGame(int userSeq ,int game_select) {
+		int row = 0;
+		int check = 0;
+		getCon();
+		try {
+			String sql = "SELECT GAME_SEQ FROM USER_GAME_INFO WHERE USER_SEQ = ? AND GAME_SEQ = ? ";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, userSeq);
+			psmt.setInt(2, game_select);
+			check = psmt.executeUpdate();
+		} catch (SQLException e1) {
+			System.out.println("SQL 전송 실패");
+			e1.printStackTrace();
+		}finally {
+			getClose();
+		}
+		if (check > 0) {
+			try {
+				String sql = "UPDATE USER_GAME_INFO SET GAME_TIME = ? WHERE USER_SEQ = ? AND GAME_SEQ = ? ";
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, "");    //  클리어 타임
+				psmt.setInt(2, userSeq);
+				psmt.setInt(3, game_select);
+				row = psmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("SQL 전송 실패");
+				e.printStackTrace();
+			}finally {
+				getClose();
+			}
+		}else {
+			try {
+				String sql = "INSERT INTO USER_GAME_INFO VALUES ( ? , ? , ? , 1 )";
+				psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, userSeq);
+				psmt.setInt(2, game_select);
+				psmt.setString(3,"");         // 클리어 타임
+				row = psmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("SQL 전송 실패");
+				e.printStackTrace();
+			}finally {
+				getClose();
+			}
+		}
+
+		return row;
+	}
 }
 
