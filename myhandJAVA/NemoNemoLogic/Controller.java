@@ -102,7 +102,7 @@ public class Controller {
 //		String ans = dao1.gameChoice(level, game_select);
 		GameDTO ans = dao1.gameChoice(level, game_select);
 		gameSeq = ans.getGameSeq();
-		dao1.rank(userSeq, gameSeq);
+	
 		row = dao1.clear(userSeq,gameSeq);
 		if(row > 0) {
 			System.out.println("--- 이미 클리어한 그림 입니다.");
