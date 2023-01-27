@@ -210,7 +210,8 @@ public class Controller {
 			}
 //			System.out.println();
 		}
-
+		
+		userCoin = dao1.userCoinCheck(userSeq);
 		System.out.println("---------------GAME--------------");
 		System.out.println("ː " + userNick + "님              코인 : " + userCoin + "개  ː ");
 		System.out.println("ː      ~힌트사용을 원하면 700 입력~   ː ");
@@ -367,7 +368,7 @@ public class Controller {
 			}
 
 			if (count <= 0) {
-				if (userCoin > 3) {
+				if (userCoin > 2) {
 					System.out.println("=============================================");
 					System.out.println("ː         ♡ 목숨이 0이 되었어요!                ː");
 					System.out.println("ː    목숨을 구입해서 계속 플레이 하시겠습니까?       ː");

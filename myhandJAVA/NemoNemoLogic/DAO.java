@@ -268,5 +268,26 @@ public class DAO {
 		}
 		return row;
 	}
+	
+	public int userCoinCheck(int userSeq) {
+		int res = 0;
+		getCon();
+		try {
+			String sql = "select user_coin from user_info where user_seq = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, userSeq);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				res = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+		return res;
+	}
+	
 }
 
