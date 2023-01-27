@@ -99,6 +99,7 @@ public class Controller {
 		int row = 0;
 		int num = 0;
 		int a = 0;
+		// level 1은 5*5, 2는 10*10
 		if (level == 1) {
 			a = 5;
 		} else if (level == 2) {
@@ -188,9 +189,12 @@ public class Controller {
 	// Game Start!
 	public static int playGame(int num, int[][] res, int game_select) {
 		Scanner sc = new Scanner(System.in);
+		DAO dao1 = new DAO();
 		// 정답 체크할 변수
 		int resCheck = 0;
 		int userCheck = 0;
+		// 힌트 사용 번호
+		int hint = 700;
 		System.out.println();
 		sleep();
 
@@ -206,7 +210,7 @@ public class Controller {
 
 		System.out.println("---------------GAME--------------");
 		System.out.println("ː " + userNick + "님              코인 : " + userCoin + "개  ː ");
-		System.out.println("ː                    힌트 : 0개   ː ");
+		System.out.println("ː      ~힌트사용을 원하면 700 입력~   ː ");
 		System.out.println("---------------------------------\n");
 
 		// 숫자 매칭 배열
@@ -258,7 +262,7 @@ public class Controller {
 			System.out.println("---------------------------------\n");
 			System.out.println();
 			
-			System.out.print("선택을 원하면 1번, X를 원하면 2번 선택 >>");
+			System.out.print("칠하려면 1번, X는 2번, 힌트는 700번 선택 >>");
 			int oxSelect = sc.nextInt();
 			
 			if (oxSelect == 1) {
@@ -285,11 +289,35 @@ public class Controller {
 					count--;
 					System.out.println("다시 확인하세요.");
 				}
-			}
+			} else if(oxSelect == hint) {
+				// 힌트 사용
+				int hintNum = 0;
+				if (level == 1) {
+					hintNum = 5;
+				} else if (level == 2) {
+					hintNum = 10;
+				}
+				Random rd = new Random();
+				dao1.gaCha(userCoin-1);
+				choice = rd.nextInt(hintNum*hintNum+1);
+				System.out.println(choice + "번! 힌트 사용 완료! 코인 한개 차감!");
+				System.out.println(userCoin + "개 남았습니다!");
+				System.out.println();
+				
+				if (res[(choice - 1) / num][(choice - 1) % num] == 1) {
+					if (user[(choice - 1) / num][(choice - 1) % num] != 1) {
+						user[(choice - 1) / num][(choice - 1) % num] = 1;
+						userCheck++;
+					}
+				} else {
+					count--;
+					System.out.println("다시 확인하세요.");
+				}
 
+			}
+			
 			if (userCheck == resCheck) {
 				int row = 0;
-				DAO dao1 = new DAO();
 				int coin = 0;
 				System.out.println("정답!! 축하합니다!!");
 				for (int i = 0; i < user.length; i++) {
@@ -341,7 +369,6 @@ public class Controller {
 						System.out.println("----------------------------------\n");
 						System.out.println();
 						sleep();
-						DAO dao1 = new DAO();
 						
 						// userCoin 3개 차감
 						dao1.gaCha(userCoin-3);
@@ -386,8 +413,10 @@ public class Controller {
 //		}
 //		System.out.println("============ Rank ============");
 		System.out.println("  이름\t\t 시간");
-		for(int i = 0;i<list.size();i++) {
-			System.out.println(nums[i]+" "+list.get(i).getUserNick()+"\t\t "+list.get(i).getGameTime());
+		
+		for(int i = 0;i<nums.length;i++) {
+			String[] time = list.get(i).getGameTime().split(",");
+			System.out.println(nums[i]+" "+list.get(i).getUserNick()+"\t "+time[0] + "분" + time[1] + " 초");
 		}
 		while (true) {
 			System.out.println();
@@ -651,5 +680,6 @@ public class Controller {
 		return hintArrY;
 
 	}
+	
 
 }
