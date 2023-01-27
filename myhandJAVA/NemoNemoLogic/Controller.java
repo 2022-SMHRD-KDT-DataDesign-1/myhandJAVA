@@ -355,7 +355,7 @@ public class Controller {
 			}
 
 			if (count <= 0) {
-				if (userCoin > 0) {
+				if (userCoin > 3) {
 					System.out.println("=============================================");
 					System.out.println("ː         ♡ 목숨이 0이 되었어요!                ː");
 					System.out.println("ː    목숨을 구입해서 계속 플레이 하시겠습니까?       ː");
@@ -392,7 +392,7 @@ public class Controller {
 				} else {
 					System.out.println("=============================================");
 					System.out.println("ː         ♡ 목숨이 0이 되었어요!                ː");
-					System.out.println("ː    아쉽게도 목숨이 없어 게임이 종료됩니다! ^0^     ː");
+					System.out.println("ː    아쉽게도 코인이 없어 게임이 종료됩니다! ^0^     ː");
 					System.out.println("=============================================\n");
 					return 1;
 				}
