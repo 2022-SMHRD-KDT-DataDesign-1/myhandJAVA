@@ -70,7 +70,7 @@ public class Controller {
 				System.out.println();
 				System.out.println("---------------5X5---------------");
 				for (int i = 0; i < game_seq.size(); i++) {
-					System.out.print(nums[i] + "\t");
+					System.out.printf("%5s",nums[i]);
 //					System.out.print("[" + game_seq.get(i) + "] ");
 				}
 				System.out.println();
@@ -81,7 +81,7 @@ public class Controller {
 				System.out.println();
 				System.out.println("--------------10X10--------------");
 				for (int i = 0; i < game_seq.size(); i++) {
-					System.out.print(nums[i] + "\t");
+					System.out.printf("%5s",nums[i]);
 //					System.out.print("[" + game_seq.get(i) + "] ");
 				}
 				System.out.println();
@@ -117,8 +117,9 @@ public class Controller {
 		}
 		row = dao1.clear(userSeq,gameSeq);
 		if(row > 0) {
-			System.out.println("--- 이미 클리어한 그림 입니다.");
-			System.out.println(" ① 랭킹보기 ② 다시하기");
+			System.out.println("--------이미 플레이한 그림입니다--------");
+			System.out.println("ː    ① 랭킹보기       ② 다시하기      ː ");
+			System.out.println("----------------------------------\n");
 			int select = sc.nextInt();
 			if(select == 1) {
 				ArrayList<GameDTO> list = new ArrayList<>();
@@ -135,7 +136,7 @@ public class Controller {
 			}else if(select == 2) {
 				
 			}else {
-				System.out.println("숫자를 다시 입력 해 주세요");
+				System.out.println("올바른 숫자를 입력하세요");
 				return 1;
 			}
 		}
@@ -262,11 +263,11 @@ public class Controller {
 			System.out.println("---------------------------------\n");
 			System.out.println();
 			
-			System.out.print("칠하려면 1번, X는 2번, 힌트는 700번 선택 >>");
+			System.out.print("칠하려면 1번, X는 2번, 힌트는 700번 선택 >> ");
 			int oxSelect = sc.nextInt();
 			
 			if (oxSelect == 1) {
-				System.out.print("숫자 선택 >>");
+				System.out.print("-------------------------- 숫자 선택 >> ");
 				choice = sc.nextInt();
 
 				if (res[(choice - 1) / num][(choice - 1) % num] == 1) {
@@ -276,7 +277,9 @@ public class Controller {
 					}
 				} else {
 					count--;
-					System.out.println("다시 확인하세요.");
+					System.out.println();
+					System.out.println(" 틀렸습니다!");
+					System.out.println();
 				}
 
 			} else if (oxSelect == 2) {
@@ -319,24 +322,29 @@ public class Controller {
 			if (userCheck == resCheck) {
 				int row = 0;
 				int coin = 0;
+				sleep();
+				System.out.println();
 				System.out.println("정답!! 축하합니다!!");
+				System.out.println();
 				for (int i = 0; i < user.length; i++) {
 					for (int j = 0; j < user.length; j++) {
 						if (user[i][j] == 1) {
-							System.out.print("■" + " ");
+							System.out.printf("%2s","■");
 						} else if (user[i][j] == 3) {
-							System.out.print("X" + " ");
+							System.out.printf("%2s","X");
 						} else {
-							System.out.print("□" + " ");
+							System.out.printf("%2s","□");
 						}
 					}
 					System.out.println();
 				}
-
+				System.out.println();
+				System.out.print("걸린 시간 : ");
 				end = System.currentTimeMillis();
 				time = Long.toString((end - start) / 1000 / 60) + "," + Long.toString((end - start) / 1000 % 60);
-				System.out.println(Long.toString((end - start) / 1000 / 60) + "분"
+				System.out.print(Long.toString((end - start) / 1000 / 60) + "분"
 						+ Long.toString((end - start) / 1000 % 60) + "초");
+				System.out.println();
 				if (level == 1 && count == 3) {
 					coin = 1;
 				} else if (level == 2) {
@@ -344,7 +352,9 @@ public class Controller {
 				}
 				row = dao1.updateCoin(coin, userSeq);
 				if (row > 0) {
-					System.out.println("\n" + coin + "코인 흭득!");
+					
+					System.out.println(coin + "코인 흭득!\t");
+					System.out.println();
 					userCoin += coin;
 				}
 				dao1.userGame(userSeq, gameSeq, time);
@@ -373,6 +383,8 @@ public class Controller {
 						// userCoin 3개 차감
 						dao1.gaCha(userCoin-3);
 						int a1 = gaCha();
+						player.stop();
+						player.play(1);
 						
 						if (a1 == 10) {
 							return 1;
@@ -382,6 +394,8 @@ public class Controller {
 						// 한판 다시니까 1 차감 -> 할랬는데 목숨 1개 뽑으면 꺼져서 일단 안차감..ㅎ
 //						count--;
 					} else if (yesOrNo == 2) {
+						player.stop();
+						player.play(7);
 						System.out.println("\t포기하셨습니다\n");
 						System.out.println("\t　 /) /) \n" + "\t  (ಥ_ಥ)\n");
 //					levelChoice();
@@ -424,7 +438,6 @@ public class Controller {
 			System.out.println("----------------------------------\n");
 			int re_select = sc.nextInt();
 			if (re_select == 1) {
-				// gameplay없애고 다른거 넣어주세용 playGame넣어주세용 
 //				gamePlay();
 				return 0;
 			} else if (re_select == 2) {
