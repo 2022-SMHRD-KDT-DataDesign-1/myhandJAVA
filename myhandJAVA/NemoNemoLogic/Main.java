@@ -67,9 +67,10 @@ public class Main {
 						System.out.println("번호를 확인하세요~.");
 						continue;
 					}
+
+					System.out.println("플레이할 그림을 선택하세요");
 					ct.levelChoice(level_choice);
 					
-					System.out.println("플레이할 그림을 선택하세요");
 					int game_select = sc.nextInt();
 //					player.stop();
 //					player.play(1); // 게임 플레이음악
