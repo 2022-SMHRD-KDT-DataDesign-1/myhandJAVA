@@ -117,9 +117,11 @@ public class Controller {
 		}
 		row = dao1.clear(userSeq,gameSeq);
 		if(row > 0) {
+
 			System.out.println("--------이미 플레이한 그림입니다--------");
 			System.out.println("ː    ① 랭킹보기       ② 다시하기      ː ");
 			System.out.println("----------------------------------\n");
+
 			int select = sc.nextInt();
 			if(select == 1) {
 				ArrayList<GameDTO> list = new ArrayList<>();
@@ -292,7 +294,7 @@ public class Controller {
 					count--;
 					System.out.println("다시 확인하세요.");
 				}
-			} else if(oxSelect == hint) {
+			} else if(oxSelect == hint && userCoin != 0) {
 				// 힌트 사용
 				int hintNum = 0;
 				if (level == 1) {
@@ -302,7 +304,7 @@ public class Controller {
 				}
 				Random rd = new Random();
 				dao1.gaCha(userCoin-1);
-				choice = rd.nextInt(hintNum*hintNum+1);
+				choice = rd.nextInt(hintNum*hintNum) + 1;
 				System.out.println(choice + "번! 힌트 사용 완료! 코인 한개 차감!");
 				System.out.println(userCoin + "개 남았습니다!");
 				System.out.println();
@@ -365,7 +367,7 @@ public class Controller {
 			}
 
 			if (count <= 0) {
-				if (userCoin > 0) {
+				if (userCoin > 3) {
 					System.out.println("=============================================");
 					System.out.println("ː         ♡ 목숨이 0이 되었어요!                ː");
 					System.out.println("ː    목숨을 구입해서 계속 플레이 하시겠습니까?       ː");
@@ -406,7 +408,7 @@ public class Controller {
 				} else {
 					System.out.println("=============================================");
 					System.out.println("ː         ♡ 목숨이 0이 되었어요!                ː");
-					System.out.println("ː    아쉽게도 목숨이 없어 게임이 종료됩니다! ^0^     ː");
+					System.out.println("ː    아쉽게도 코인이 없어 게임이 종료됩니다! ^0^     ː");
 					System.out.println("=============================================\n");
 					return 1;
 				}
@@ -427,10 +429,10 @@ public class Controller {
 //		}
 //		System.out.println("============ Rank ============");
 		System.out.println("  이름\t\t 시간");
-		
+
 		for(int i = 0;i<nums.length;i++) {
 			String[] time = list.get(i).getGameTime().split(",");
-			System.out.println(nums[i]+" "+list.get(i).getUserNick()+"\t "+time[0] + "분" + time[1] + " 초");
+			System.out.println(nums[i]+" "+list.get(i).getUserNick()+"\t "+time[0] + "분 " + time[1] + "초");
 		}
 		while (true) {
 			System.out.println();
@@ -460,7 +462,6 @@ public class Controller {
 		System.out.println("---------------------------------\n");
 
 		System.out.println("GAME");
-
 		System.out.println("---------------------------------");
 		if (life == 3) {
 			System.out.println("ː                          " + stars[0] + "  ː");
