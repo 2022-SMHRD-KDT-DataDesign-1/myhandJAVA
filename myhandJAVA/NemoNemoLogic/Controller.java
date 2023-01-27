@@ -289,7 +289,7 @@ public class Controller {
 					count--;
 					System.out.println("다시 확인하세요.");
 				}
-			} else if(oxSelect == hint) {
+			} else if(oxSelect == hint && userCoin != 0) {
 				// 힌트 사용
 				int hintNum = 0;
 				if (level == 1) {
@@ -299,7 +299,7 @@ public class Controller {
 				}
 				Random rd = new Random();
 				dao1.gaCha(userCoin-1);
-				choice = rd.nextInt(hintNum*hintNum+1);
+				choice = rd.nextInt(hintNum*hintNum) + 1;
 				System.out.println(choice + "번! 힌트 사용 완료! 코인 한개 차감!");
 				System.out.println(userCoin + "개 남았습니다!");
 				System.out.println();
@@ -416,7 +416,7 @@ public class Controller {
 		
 		for(int i = 0;i<nums.length;i++) {
 			String[] time = list.get(i).getGameTime().split(",");
-			System.out.println(nums[i]+" "+list.get(i).getUserNick()+"\t "+time[0] + "분" + time[1] + " 초");
+			System.out.println(nums[i]+" "+list.get(i).getUserNick()+"\t "+time[0] + "분 " + time[1] + "초");
 		}
 		while (true) {
 			System.out.println();
@@ -447,7 +447,6 @@ public class Controller {
 		System.out.println("---------------------------------\n");
 
 		System.out.println("GAME");
-
 		System.out.println("---------------------------------");
 		if (life == 3) {
 			System.out.println("ː                          " + stars[0] + "  ː");
