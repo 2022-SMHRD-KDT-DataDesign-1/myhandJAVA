@@ -272,8 +272,12 @@ public class Controller {
 			if (oxSelect == 1) {
 				System.out.print("-------------------------- 숫자 선택 >> ");
 				choice = sc.nextInt();
+				if(choice < 0 && choice <= num*num){
+					System.out.println("숫자를 확인해 주세요.");
+					continue;
+				}
 
-				if (res[(choice - 1) / num][(choice - 1) % num] == 1) {
+				if (res[(choice - 1) / num][(choice - 1) % num] == 1 && choice <= num*num) {
 					if (user[(choice - 1) / num][(choice - 1) % num] != 1) {
 						user[(choice - 1) / num][(choice - 1) % num] = 1;
 						userCheck++;
@@ -288,6 +292,11 @@ public class Controller {
 			} else if (oxSelect == 2) {
 				System.out.print("숫자 선택 >>");
 				choice = sc.nextInt();
+				
+				if(choice < 0 && choice <= num*num){
+					System.out.println("숫자를 확인해 주세요.");
+					continue;
+				}
 
 				if (res[(choice - 1) / num][(choice - 1) % num] == 0) {
 					user[(choice - 1) / num][(choice - 1) % num] = 3;
