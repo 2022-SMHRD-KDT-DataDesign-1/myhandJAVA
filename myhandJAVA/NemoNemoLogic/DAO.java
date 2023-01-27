@@ -231,7 +231,7 @@ public class DAO {
 					+ "  FROM USER_INFO A , (SELECT *\r\n"
 					+ "                        FROM USER_GAME_INFO\r\n"
 					+ "                       WHERE GAME_SEQ = ?\r\n"
-					+ "                       ORDER BY GAME_TIME ASC\r\n"
+					+ "                       ORDER BY LENGTH(GAME_TIME),GAME_TIME ASC\r\n"
 					+ "                       ) B\r\n"
 					+ " WHERE A.USER_SEQ = B.USER_SEQ";
 			psmt = conn.prepareStatement(sql);

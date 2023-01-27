@@ -116,7 +116,7 @@ public class Controller {
 		}
 		row = dao1.clear(userSeq,gameSeq);
 		if(row > 0) {
-			System.out.println("--- 이미 클리어한 그림 입니다.");
+			System.out.println("--- 이미 클리어한 그림 입니다 ---");
 			System.out.println(" ① 랭킹보기 ② 다시하기");
 			int select = sc.nextInt();
 			if(select == 1) {
@@ -386,7 +386,7 @@ public class Controller {
 //		}
 //		System.out.println("============ Rank ============");
 		System.out.println("  이름\t\t 시간");
-		for(int i = 0;i<list.size();i++) {
+		for(int i = 0;i<nums.length;i++) {
 			System.out.println(nums[i]+" "+list.get(i).getUserNick()+"\t\t "+list.get(i).getGameTime());
 		}
 		while (true) {
