@@ -272,38 +272,46 @@ public class Controller {
 			if (oxSelect == 1) {
 				System.out.print("-------------------------- 숫자 선택 >> ");
 				choice = sc.nextInt();
-				if(choice < 0 && choice <= num*num){
-					System.out.println("숫자를 확인해 주세요.");
+				
+				if(numberCheck(choice, num)){
+					System.out.println("숫자를 확인하세요.");
+					System.out.println();
 					continue;
+				} else {
+					
+					if (res[(choice - 1) / num][(choice - 1) % num] == 1) {
+						if (user[(choice - 1) / num][(choice - 1) % num] != 1) {
+							user[(choice - 1) / num][(choice - 1) % num] = 1;
+							userCheck++;
+						}
+					} else {
+						count--;
+						System.out.println();
+						System.out.println(" 틀렸습니다!");
+						System.out.println();
+					}
 				}
 
-				if (res[(choice - 1) / num][(choice - 1) % num] == 1 && choice <= num*num) {
-					if (user[(choice - 1) / num][(choice - 1) % num] != 1) {
-						user[(choice - 1) / num][(choice - 1) % num] = 1;
-						userCheck++;
-					}
-				} else {
-					count--;
-					System.out.println();
-					System.out.println(" 틀렸습니다!");
-					System.out.println();
-				}
 
 			} else if (oxSelect == 2) {
 				System.out.print("숫자 선택 >>");
 				choice = sc.nextInt();
 				
-				if(choice < 0 && choice <= num*num){
-					System.out.println("숫자를 확인해 주세요.");
+				if(numberCheck(choice, num)){
+					System.out.println("숫자를 확인하세요.");
+					System.out.println();
 					continue;
+				}else {
+					
+					if (res[(choice - 1) / num][(choice - 1) % num] == 0) {
+						
+						user[(choice - 1) / num][(choice - 1) % num] = 3;
+					} else {
+						count--;
+						System.out.println("다시 확인하세요.");
+					}
 				}
 
-				if (res[(choice - 1) / num][(choice - 1) % num] == 0) {
-					user[(choice - 1) / num][(choice - 1) % num] = 3;
-				} else {
-					count--;
-					System.out.println("다시 확인하세요.");
-				}
 			} else if(oxSelect == hint && userCoin != 0) {
 				// 힌트 사용
 				int hintNum = 0;
@@ -313,6 +321,7 @@ public class Controller {
 					hintNum = 10;
 				}
 				Random rd = new Random();
+				// 코인 차감
 				dao1.gaCha(userCoin-1);
 				choice = rd.nextInt(hintNum*hintNum) + 1;
 				System.out.println(choice + "번! 힌트 사용 완료! 코인 한개 차감!");
@@ -704,6 +713,12 @@ public class Controller {
 		return hintArrY;
 
 	}
-	
+	public static boolean numberCheck(int choice, int num) {
+		if(choice < 1 && choice > num*num){
+			System.out.println("숫자를 확인해 주세요.");
+			return false;
+		}
+		return true;
+	}
 
 }
