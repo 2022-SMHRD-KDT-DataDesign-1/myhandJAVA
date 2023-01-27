@@ -6,7 +6,7 @@ public class GameDTO {
 	private String gameTime;
 	private Integer gameClear;
 	private String gameAns;
-	
+	private String userNick;
 	public GameDTO(Integer userSeq, Integer gameSeq, String gameTime, Integer gameClear, String gameAns) {
 		this.userSeq = userSeq;
 		this.gameSeq = gameSeq;
@@ -14,9 +14,19 @@ public class GameDTO {
 		this.gameClear = gameClear;
 		this.gameAns = gameAns;
 	}
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
 	public GameDTO(Integer gameSeq, String gameAns) {
 		this.gameSeq = gameSeq;
 		this.gameAns = gameAns;
+	}
+	public GameDTO(String userNick , String gameTime) {
+		this.userNick = userNick;
+		this.gameTime = gameTime;
 	}
 	
 	public Integer getUserSeq() {

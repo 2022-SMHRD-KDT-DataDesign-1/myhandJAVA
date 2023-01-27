@@ -84,7 +84,7 @@ public class DAO {
 				if (rs.getString(4).equals(dto.getPw())) {
 					a.setNick(rs.getString(3));
 					a.setUserSeq(rs.getInt(1));
-					a.setUserCoin(5);
+					a.setUserCoin(rs.getInt(5));
 					break;
 				}else {
 					a.setNick(null);
@@ -127,15 +127,15 @@ public class DAO {
 		GameDTO ans = new GameDTO(0, "");
 		getCon();
 		try {
-			String sql = "SELECT * FROM (SELECT ROWNUM AS RN, game_seq, game_ans FROM GAME_INFO WHERE game_level = ? order by game_seq) WHERE ROWNUM  = ?";
+			String sql = "SELECT * FROM (SELECT ROWNUM AS RN, game_seq, game_ans FROM GAME_INFO WHERE game_level = ? order by game_seq) WHERE RN = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, level);
 			psmt.setInt(2, game_select);
 			rs = psmt.executeQuery();
 			
 			while (rs.next()) {
-				ans.setGameAns(rs.getString(3));
 				ans.setGameSeq(rs.getInt(2));
+				ans.setGameAns(rs.getString(3));
 			}
 		} catch (SQLException e) {
 			System.out.println("game seq : 데이터베이스 연결 실패");
@@ -207,8 +207,66 @@ public class DAO {
 		}
 	}
 
-	public void rank(int userSeq, int gameSeq) {
+	public int clear(int userSeq, int gameSeq) {
+		int row = 0;
+		getCon();
+		try {
+			String sql = "SELECT GAME_CLEAR FROM USER_GAME_INFO WHERE GAME_CLEAR = 1 AND USER_SEQ = ? AND GAME_SEQ = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1,userSeq);
+			psmt.setInt(2, gameSeq);
+			row = psmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Rank : SQL 전송 실패");
+			e.printStackTrace();
+		}
+		return row;
+	}
+
+	public ArrayList<GameDTO> rank(int gameSeq) {
+		ArrayList<GameDTO> list = new ArrayList<>();
+		getCon();
+		try {
+			String sql = "SELECT A.USER_NICK, B.GAME_TIME\r\n"
+					+ "  FROM USER_INFO A , (SELECT *\r\n"
+					+ "                        FROM USER_GAME_INFO\r\n"
+					+ "                       WHERE GAME_SEQ = ?\r\n"
+					+ "                       ORDER BY GAME_TIME ASC\r\n"
+					+ "                       ) B\r\n"
+					+ " WHERE A.USER_SEQ = B.USER_SEQ";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, gameSeq);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				String nick = rs.getString(1);
+				String time = rs.getString(2);
+				GameDTO dto = new GameDTO(nick,time);
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+		return list;
+		
+		
+	}
 	
+	public int gaCha(int coin) {
+		int row = 0;
+		getCon();
+		try {
+			String sql = "UPDATE user_info SET user_coin = ? where user_seq = 3";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1,coin);
+			row = psmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Rank : SQL 전송 실패");
+			e.printStackTrace();
+		}
+		return row;
 	}
 }
 
