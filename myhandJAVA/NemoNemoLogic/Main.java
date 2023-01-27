@@ -61,6 +61,7 @@ public class Main {
 					int level_choice = sc.nextInt();
 					if(level_choice == 3) {
 						System.out.println("로그아웃 되었습니다.");
+						isCheck = false;
 						break;
 					} else if (level_choice > 3){
 						System.out.println("번호를 확인하세요~.");
@@ -82,7 +83,6 @@ public class Main {
 			}else if (choice == 3) {
 				System.out.println("-------------게임을 종료합니다------------");
 				// 일단 멈춤
-				sleep();
 //				player.stop();
 				break;
 			}else {
