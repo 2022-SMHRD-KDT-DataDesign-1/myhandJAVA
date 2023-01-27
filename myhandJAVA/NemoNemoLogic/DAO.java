@@ -84,7 +84,7 @@ public class DAO {
 				if (rs.getString(4).equals(dto.getPw())) {
 					a.setNick(rs.getString(3));
 					a.setUserSeq(rs.getInt(1));
-					a.setUserCoin(5);
+					a.setUserCoin(rs.getInt(5));
 					break;
 				}else {
 					a.setNick(null);
@@ -127,7 +127,7 @@ public class DAO {
 		GameDTO ans = new GameDTO(0, "");
 		getCon();
 		try {
-			String sql = "SELECT * FROM (SELECT ROWNUM AS RN, game_seq, game_ans FROM GAME_INFO WHERE game_level = ? order by game_seq) WHERE ROWNUM  <= ?";
+			String sql = "SELECT * FROM (SELECT ROWNUM AS RN, game_seq, game_ans FROM GAME_INFO WHERE game_level = ? order by game_seq) WHERE RN = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, level);
 			psmt.setInt(2, game_select);
@@ -252,6 +252,21 @@ public class DAO {
 		return list;
 		
 		
+	}
+	
+	public int gaCha(int coin) {
+		int row = 0;
+		getCon();
+		try {
+			String sql = "UPDATE user_info SET user_coin = ? where user_seq = 3";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1,coin);
+			row = psmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Rank : SQL 전송 실패");
+			e.printStackTrace();
+		}
+		return row;
 	}
 }
 
